@@ -5,13 +5,9 @@ const Game = () => {
 
   const head = <div id="head"></div>
 
-
-  {
-    console.log("It worked")
-  }
+  console.log("It worked")
 
   console.log(React)
-
 
   return (
     <div id="eisle">
@@ -20,7 +16,6 @@ const Game = () => {
       </div>
     </div>
   )
-
 }
 
 export default Game;
