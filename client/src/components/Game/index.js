@@ -72,7 +72,7 @@ function Game() {
     label: "R"
   }
   const movementButtons = [btnUp, btnDown, btnLeft, btnRight]
-  const head = <div id="head"></div>
+  let head = <div id="head"></div>
 
   window.addEventListener("keydown", function (event) {
     if (event.defaultPrevented) {
@@ -80,26 +80,25 @@ function Game() {
     }
     switch (event.code) {
       case "ArrowDown":
-        console.log("DOWN")
         handleMovement(btnDown)
         break;
       case "ArrowUp":
-        console.log("UP")
         handleMovement(btnUp)
         break;
       case "ArrowLeft":
-        console.log("LEFT")
         handleMovement(btnLeft)
         break;
       case "ArrowRight":
-        console.log("RIGHT")
         handleMovement(btnRight)
         break;
     }
   })
 
   const handleMovement = (button) => {
-    console.log(button)
+    console.log(button.id)
+    if (button.id === 'right') {
+      head = <div></div>
+    }
   }
 
   return (
@@ -111,7 +110,7 @@ function Game() {
           ))
         }
       </div>
-      <div id="canvas">
+      <div id="viewport">
         {head}
       </div>
       <div id="buttons-container">

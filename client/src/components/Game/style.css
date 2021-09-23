@@ -1,7 +1,10 @@
+* {
+  margin: 0;
+}
+
 body {
   overflow-y: hidden;
   overflow-x: hidden;
-  margin: 0;
   background: radial-gradient(black, rgb(46, 80, 82) 99%);
 }
 
@@ -17,26 +20,26 @@ body {
   background: radial-gradient(black, rgb(53, 92, 94) 30%);
 }
 
-#top-eisle {
-}
-
-#bottom-eisle {
-}
-
-#canvas {
-  display: flex;
+#viewport {
+  display: relative;
   width: 80vh;
   height: 80vh;
   border: 1vh inset rgba(128, 128, 128, 0.753);
   background-color: black;
+  z-index: 5;
+  overflow: hidden;
 }
 
 #head {
-  margin: auto;
+  position: abso;
+  bottom: 50%;
+  left: 50%;
+  /* transform: translate(-50%, 50%); */
   background-color: purple;
   height: 5vh;
   width: 5vh;
   border-radius: 50%;
+  z-index: 1;
 }
 
 #arrows-container,
