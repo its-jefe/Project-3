@@ -63,6 +63,7 @@ body {
   height: 17vh;
   width: 17vh;
   border-radius: 35%;
+  /* transition: all 1s ease; */
 }
 
 #btn-up {
