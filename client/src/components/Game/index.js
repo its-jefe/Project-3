@@ -1,38 +1,127 @@
-import React, { useEffect } from "react"
-import ReactDOM from "react-dom"
+import React, { useState, useEffect } from "react"
 
 import './style.css'
 
-const Game = () => {
+// consider adding initial state of the ball
 
-  // function keyPress(key)
-  // document.getElementById("myBtn").click();
+/*
+const initialState = {
+  x: window.innerWidth,
+  y: window.innerHeight
+}
+*/
 
+// Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class.
+
+/* TEST
+function Game() {
+  // Declare a new state variable, which we'll call "count"
+
+  function plusOne() {
+    return count + 1
+  }
+
+  // useState returns a pair: the current state value and a function that lets you update it.
+  const [count, setCount] = useState(0);
+
+  let [height, setHeight] = useState(window.innerHeight)
+  let [width, setWidth] = useState(window.innerWidth)
+
+  function dimensions() {
+    console.log("height: ", height);
+    console.log("width: ", width);
+    return (
+      height = window.innerHeight,
+      width = window.innerWidth
+      )
+  }
+
+  useEffect(() => {
+    setHeight(dimensions);
+    setWidth(dimensions);
+  }, [height, width]);
+  // Array values must be from the component scope (i.e., props, state, context, or values derived from the aforementioned).
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(plusOne)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+*/
+
+function Game() {
+
+  const btnUp = {
+    id: "up",
+    label: "U"
+  }
+  const btnDown = {
+    id: "down",
+    label: "D"
+  }
+  const btnLeft = {
+    id: "left",
+    label: "L"
+  }
+  const btnRight = {
+    id: "right",
+    label: "R"
+  }
+  const movementButtons = [btnUp, btnDown, btnLeft, btnRight]
   const head = <div id="head"></div>
 
-  const arrowUp = <button id="btn-up">U</button>
-  const arrowDown = <button id="btn-down">D</button>
-  const arrowLeft = <button id="btn-left">L</button>
-  const arrowRight = <button id="btn-right">R</button>
+  window.addEventListener("keydown", function (event) {
+    if (event.defaultPrevented) {
+      return; // Do nothing if event already handled
+    }
+    switch (event.code) {
+      case "ArrowDown":
+        console.log("DOWN")
+        handleMovement(btnDown)
+        break;
+      case "ArrowUp":
+        console.log("UP")
+        handleMovement(btnUp)
+        break;
+      case "ArrowLeft":
+        console.log("LEFT")
+        handleMovement(btnLeft)
+        break;
+      case "ArrowRight":
+        console.log("RIGHT")
+        handleMovement(btnRight)
+        break;
+    }
+  })
 
-  const btnAlpha = <button id="btn-A">A</button>
-  const btnBeta = <button id="btn-B">B</button>
+  const handleMovement = (button) => {
+    console.log(button)
+  }
 
   return (
     <div id="eisle">
       <div id="arrows-container">
-        {arrowUp}
-        {arrowDown}
-        {arrowLeft}
-        {arrowRight}
+        {
+          movementButtons.map(button => (
+            <button key={button.id} id={`btn-${button.id}`} onClick={() => handleMovement(button)}>{button.label}</button>
+          ))
+        }
       </div>
-      <div id="canvas">{head}</div>
+      <div id="canvas">
+        {head}
+      </div>
       <div id="buttons-container">
-        {btnAlpha}
-        {btnBeta}
+        <button id="btn-A">A</button>
+        <button id="btn-B">B</button>
       </div>
     </div>
   )
 }
 
 export default Game;
+
+// accesskey global attribute provides a hint for generating a keyboard shortcut for the current element.
