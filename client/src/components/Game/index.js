@@ -27,7 +27,7 @@ function Game() {
 
   const movementButtons = [btnUp, btnDown, btnLeft, btnRight]
 
-  // it let me use delta
+  // it let me use delta!
   let [x, Δx] = useState (50)
   let [y, Δy] = useState (50)
 
@@ -35,11 +35,10 @@ function Game() {
     // need to make this a time interval function
     if (button.id === "left" || button.id === "right"){
       Δx(x + button.value)
-      console.log(x)
     } else {
       Δy(y + button.value)
-      console.log(y)
     }
+    console.log("("+x,y+")")
   }
 
   // Arrows and WASD listener
