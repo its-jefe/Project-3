@@ -42,15 +42,13 @@ function Game() {
     }
   }
 
-  // let head = <div id="head" style={{left:x+"%" , top:y+"%"}}></div>
-
-  // console.log(head)
-
+  // Arrows and WASD listener
   window.addEventListener("keydown", function (event) {
     if (event.defaultPrevented) {
       return; // Do nothing if event already handled
     }
     // NEED TO CANCEL ALL EVENTS ON ANOTHER KEY PRESS
+    /* On focus is cool because it does not seem to allow competing clicks */
     switch (event.code) {
       case "ArrowDown":
       case "KeyS":
