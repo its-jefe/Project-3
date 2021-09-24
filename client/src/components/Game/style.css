@@ -15,7 +15,7 @@ body {
   align-items: center;
   height: 100vh;
   width: 100vw;
-  border: .5vh solid rgba(128, 128, 128, 0.753);
+  border: 0.5vh solid rgba(128, 128, 128, 0.753);
   border-radius: 25%;
   background: radial-gradient(black, rgb(53, 92, 94) 30%);
 }
@@ -32,8 +32,6 @@ body {
 
 #head {
   position: relative;
-  top: 50%;
-  left: 50%;
   transform: translate(-50%, -50%);
   background-color: purple;
   height: 5vh;
@@ -49,7 +47,7 @@ body {
   height: 45vmin;
   border: outset 0.75vh rgba(128, 128, 128, 0.25);
   border-radius: 40%;
-  background: radial-gradient(#00000000,rgba(0, 0, 0, 0.192));
+  background: radial-gradient(#00000000, rgba(0, 0, 0, 0.192));
 }
 #buttons-container {
   height: 30vmin;
@@ -91,7 +89,7 @@ body {
 }
 
 #btn-A,
-#btn-B{
+#btn-B {
   position: absolute;
   font-weight: bold;
   height: 20vh;
@@ -111,34 +109,41 @@ body {
 
 #btn-A,
 #btn-B,
-#btn-up, 
-#btn-down, 
-#btn-left, 
+#btn-up,
+#btn-down,
+#btn-left,
 #btn-right {
   font-size: 5vh;
   color: #00000060;
-  border: .35vh outset rgba(248, 248, 248, 0.185);
+  border: 0.35vh outset rgba(248, 248, 248, 0.185);
   background: rgba(61, 104, 105, 0.418);
 }
 
-#btn-A:hover ,
-#btn-B:hover ,
-#btn-up:hover , 
-#btn-down:hover , 
-#btn-left:hover , 
+#btn-A:hover,
+#btn-B:hover,
+#btn-up:hover,
+#btn-down:hover,
+#btn-left:hover,
 #btn-right:hover {
-  border: .35vh outset rgba(248, 248, 248, 0.185);
+  border: 0.35vh outset rgba(248, 248, 248, 0.185);
   background: rgba(54, 94, 94, 0.418);
 }
 
-#btn-A:active ,
-#btn-B:active ,
-#btn-up:active , 
-#btn-down:active , 
-#btn-left:active , 
-#btn-right:active {
-  border: .45vh inset rgba(248, 248, 248, 0.185);
+#btn-A:active,
+#btn-A:focus,
+#btn-B:active,
+#btn-B:focus,
+#btn-up:active,
+#btn-up:focus,
+#btn-down:active,
+#btn-down:focus,
+#btn-left:active,
+#btn-left:focus,
+#btn-right:active,
+#btn-right:focus {
+  border: 0.45vh inset rgba(248, 248, 248, 0.185);
   background: rgba(45, 78, 78, 0.418);
   color: #ffffff31;
   text-shadow: 0px 0px 20px rgb(0, 255, 170);
+  outline: none;
 }

@@ -2,116 +2,94 @@ import React, { useState, useEffect } from "react"
 
 import './style.css'
 
-// consider adding initial state of the ball
-
-/*
-const initialState = {
-  x: window.innerWidth,
-  y: window.innerHeight
-}
-*/
-
-// Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class.
-
-/* TEST
-function Game() {
-  // Declare a new state variable, which we'll call "count"
-
-  function plusOne() {
-    return count + 1
-  }
-
-  // useState returns a pair: the current state value and a function that lets you update it.
-  const [count, setCount] = useState(0);
-
-  let [height, setHeight] = useState(window.innerHeight)
-  let [width, setWidth] = useState(window.innerWidth)
-
-  function dimensions() {
-    console.log("height: ", height);
-    console.log("width: ", width);
-    return (
-      height = window.innerHeight,
-      width = window.innerWidth
-      )
-  }
-
-  useEffect(() => {
-    setHeight(dimensions);
-    setWidth(dimensions);
-  }, [height, width]);
-  // Array values must be from the component scope (i.e., props, state, context, or values derived from the aforementioned).
-
-  return (
-    <div>
-      <p>You clicked {count} times</p>
-      <button onClick={() => setCount(plusOne)}>
-        Click me
-      </button>
-    </div>
-  );
-}
-*/
-
 function Game() {
 
   const btnUp = {
     id: "up",
-    label: "U"
-  }
-  const btnDown = {
-    id: "down",
-    label: "D"
+    label: "U",
+    value: -1
   }
   const btnLeft = {
     id: "left",
-    label: "L"
+    label: "L",
+    value: -1
+  }
+  const btnDown = {
+    id: "down",
+    label: "D",
+    value: 1
   }
   const btnRight = {
     id: "right",
-    label: "R"
+    label: "R",
+    value: 1
   }
+
   const movementButtons = [btnUp, btnDown, btnLeft, btnRight]
-  let head = <div id="head"></div>
+
+  // it let me use delta
+  let [x, Δx] = useState (50)
+  let [y, Δy] = useState (50)
+
+  const handleMovement = (button) => {
+    // need to make this a time interval function
+    if (button.id === "left" || button.id === "right"){
+      Δx(x + button.value)
+      console.log(x)
+    } else {
+      Δy(y + button.value)
+      console.log(y)
+    }
+  }
+
+  // let head = <div id="head" style={{left:x+"%" , top:y+"%"}}></div>
+
+  // console.log(head)
 
   window.addEventListener("keydown", function (event) {
     if (event.defaultPrevented) {
       return; // Do nothing if event already handled
     }
+    // NEED TO CANCEL ALL EVENTS ON ANOTHER KEY PRESS
     switch (event.code) {
       case "ArrowDown":
-        handleMovement(btnDown)
+      case "KeyS":
+        // handleMovement(btnDown)
+        document.getElementById("btn-down").focus()
         break;
       case "ArrowUp":
-        handleMovement(btnUp)
+      case "KeyW":
+        // handleMovement(btnUp)
+        document.getElementById("btn-up").focus()
         break;
       case "ArrowLeft":
-        handleMovement(btnLeft)
+      case "KeyA":
+        // handleMovement(btnLeft)
+        document.getElementById("btn-left").focus()
         break;
       case "ArrowRight":
-        handleMovement(btnRight)
+      case "KeyD":
+        // handleMovement(btnRight)
+        document.getElementById("btn-right").focus()
         break;
     }
   })
-
-  const handleMovement = (button) => {
-    console.log(button.id)
-    if (button.id === 'right') {
-      head = <div></div>
-    }
-  }
 
   return (
     <div id="eisle">
       <div id="arrows-container">
         {
           movementButtons.map(button => (
-            <button key={button.id} id={`btn-${button.id}`} onClick={() => handleMovement(button)}>{button.label}</button>
+            <button key={button.id} id={`btn-${button.id}`} 
+            //decided to go with onFocus() instead of onClick()
+            onFocus={() => handleMovement(button)}
+            >{button.label}
+            </button>
           ))
         }
       </div>
       <div id="viewport">
-        {head}
+        <div id="head" style={{left:x+"%" , top:y+"%"}}></div>
       </div>
       <div id="buttons-container">
         <button id="btn-A">A</button>
