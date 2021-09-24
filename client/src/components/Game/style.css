@@ -31,10 +31,10 @@ body {
 }
 
 #head {
-  position: absolute;
-  bottom: 50%;
+  position: relative;
+  top: 50%;
   left: 50%;
-  /* transform: translate(-50%, 50%); */
+  transform: translate(-50%, -50%);
   background-color: purple;
   height: 5vh;
   width: 5vh;
