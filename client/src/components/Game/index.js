@@ -81,6 +81,7 @@ function Game() {
             <button key={button.id} id={`btn-${button.id}`} 
             //decided to go with onFocus() instead of onClick()
             onFocus={() => handleMovement(button)}
+            onTouchStart={() => handleMovement(button)}
             >{button.label}
             </button>
           ))
