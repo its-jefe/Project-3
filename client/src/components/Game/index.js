@@ -28,19 +28,33 @@ function Game() {
   const movementButtons = [btnUp, btnDown, btnLeft, btnRight]
 
   // it let me use delta!
-  let [x, Δx] = useState (50)
-  let [y, Δy] = useState (50)
+  let [x, Δx] = useState(50)
+  let [y, Δy] = useState(50)
+
+  //🎶💂🎶💂🎶🎤🎶💂🎶💂🎶
+  // let oneDirection = setInterval ({
+
+  // }, 20)
+
+  function changeX(button) {
+      return x + button.value
+  }
 
   const handleMovement = (button) => {
     // need to make this a time interval function
-    if (button.id === "left" || button.id === "right"){
-      Δx(x + button.value)
+
+    if (button.id === "left" || button.id === "right") {
+      let changeX = setInterval(Δx(x + button.value), 200)
     } else {
       Δy(y + button.value)
     }
-    console.log("("+x,y+")")
   }
-
+  
+  useEffect(()=> {
+    // actually logs correct "updated" coordinates
+    console.log("(" + x + "," + y + ")")
+  })
+  
   // Arrows and WASD listener
   window.addEventListener("keydown", function (event) {
     if (event.defaultPrevented) {
@@ -51,8 +65,8 @@ function Game() {
     switch (event.code) {
       case "ArrowDown":
       case "KeyS":
-        // handleMovement(btnDown)
         document.getElementById("btn-down").focus()
+        // handleMovement(btnDown)
         break;
       case "ArrowUp":
       case "KeyW":
@@ -77,17 +91,17 @@ function Game() {
       <div id="arrows-container">
         {
           movementButtons.map(button => (
-            <button key={button.id} id={`btn-${button.id}`} 
-            //decided to go with onFocus() instead of onClick()
-            onFocus={() => handleMovement(button)}
-            onTouchStart={() => handleMovement(button)}
+            <button key={button.id} id={`btn-${button.id}`}
+              //decided to go with onFocus() instead of onClick()
+              onFocus={() => handleMovement(button)}
+              onTouchStart={() => handleMovement(button)}
             >{button.label}
             </button>
           ))
         }
       </div>
       <div id="viewport">
-        <div id="head" style={{left:x+"%" , top:y+"%"}}></div>
+        <div id="head" style={{ left: x + "%", top: y + "%" }}></div>
       </div>
       <div id="buttons-container">
         <button id="btn-A">A</button>
