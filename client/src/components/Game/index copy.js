@@ -62,7 +62,7 @@ function Game() {
       // Do nothing if event already handled
       return;
     }
-    setState(button.change)
+
     document.getElementById(`btn-${button.id}`).focus();
   }
 
