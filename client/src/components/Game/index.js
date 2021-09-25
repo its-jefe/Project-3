@@ -3,10 +3,6 @@ import React, { useState, useEffect } from "react"
 import './style.css'
 
 function Game() {
-  
-  // might rename coords
-  let [x, setX] = useState(50)
-  let [y, setY] = useState(50)
 
   let [state, setState] = useState({x: 50, y: 50})
 
@@ -42,22 +38,22 @@ function Game() {
     switch (event.code) {
       case "ArrowDown":
       case "KeyS":
-        document.getElementById("btn-down").focus();
+        // document.getElementById("btn-down").focus();
         handleMovement(btnDown);
         break;
       case "ArrowUp":
       case "KeyW":
-        document.getElementById("btn-up").focus();
+        // document.getElementById("btn-up").focus();
         handleMovement(btnUp);
         break;
       case "ArrowLeft":
       case "KeyA":
-        document.getElementById("btn-left").focus();
+        // document.getElementById("btn-left").focus();
         handleMovement(btnLeft);
         break;
       case "ArrowRight":
       case "KeyD":
-        document.getElementById("btn-right").focus()
+        // document.getElementById("btn-right").focus()
         handleMovement(btnRight)
         break;
       default: console.log('BROKEN');
@@ -75,9 +71,10 @@ function Game() {
   }
 
   useEffect(() => {
-    // actually logs correct "updated" coordinates
     console.log(state)
-  })
+    document.addEventListener("keydown", keyPress);
+    return () => document.removeEventListener("keydown", keyPress);
+  }, [keyPress]);
 
   // Arrows and WASD listener
   window.addEventListener("keydown", keydownHandler);
