@@ -118,7 +118,7 @@ body {
   border: 0.35vh outset rgba(248, 248, 248, 0.185);
   background: rgba(61, 104, 105, 0.418);
   touch-action: manipulation
-  /* Does this work to disable double tap zoom??? */
+  /* disables double tap zoom */
 }
 
 #btn-A:hover,

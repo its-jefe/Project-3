@@ -3,88 +3,87 @@ import React, { useState, useEffect } from "react"
 import './style.css'
 
 function Game() {
+  
+  // might rename coords
+  let [x, setX] = useState(50)
+  let [y, setY] = useState(50)
+
+  let [state, setState] = useState({x: 50, y: 50})
 
   const btnUp = {
     id: "up",
     label: "U",
-    value: -1
-  }
-  const btnLeft = {
-    id: "left",
-    label: "L",
-    value: -1
+    change: {x: state.x, y: state.y - 1},
   }
   const btnDown = {
     id: "down",
     label: "D",
-    value: 1
+    change: {x: state.x, y: state.y + 1}
+  }
+  const btnLeft = {
+    id: "left",
+    label: "L",
+    change: {x: state.x - 1, y: state.y}
   }
   const btnRight = {
     id: "right",
     label: "R",
-    value: 1
+    change: {x: state.x + 1, y: state.y},
   }
-
   const movementButtons = [btnUp, btnDown, btnLeft, btnRight]
 
-  // it let me use delta!
-  let [x, Δx] = useState(50)
-  let [y, Δy] = useState(50)
-
-  //🎶💂🎶💂🎶🎤🎶💂🎶💂🎶
-  // let oneDirection = setInterval ({
-
-  // }, 20)
-
-  function changeX(button) {
-      return x + button.value
-  }
-
-  const handleMovement = (button) => {
-    // need to make this a time interval function
-
-    if (button.id === "left" || button.id === "right") {
-      let changeX = setInterval(Δx(x + button.value), 200)
-    } else {
-      Δy(y + button.value)
-    }
-  }
-  
-  useEffect(()=> {
-    // actually logs correct "updated" coordinates
-    console.log("(" + x + "," + y + ")")
-  })
-  
-  // Arrows and WASD listener
-  window.addEventListener("keydown", function (event) {
+  const keydownHandler = (event) => {
     if (event.defaultPrevented) {
       return; // Do nothing if event already handled
     }
-    // NEED TO CANCEL ALL EVENTS ON ANOTHER KEY PRESS
     /* On focus is cool because it does not seem to allow competing clicks */
+    /* but it adjusts the screen and brings the element into focus when not in fullscreen */
+    // console.log(event)
     switch (event.code) {
       case "ArrowDown":
       case "KeyS":
-        document.getElementById("btn-down").focus()
-        // handleMovement(btnDown)
+        document.getElementById("btn-down").focus();
+        handleMovement(btnDown);
         break;
       case "ArrowUp":
       case "KeyW":
-        // handleMovement(btnUp)
-        document.getElementById("btn-up").focus()
+        document.getElementById("btn-up").focus();
+        handleMovement(btnUp);
         break;
       case "ArrowLeft":
       case "KeyA":
-        // handleMovement(btnLeft)
-        document.getElementById("btn-left").focus()
+        document.getElementById("btn-left").focus();
+        handleMovement(btnLeft);
         break;
       case "ArrowRight":
       case "KeyD":
-        // handleMovement(btnRight)
         document.getElementById("btn-right").focus()
+        handleMovement(btnRight)
         break;
+      default: console.log('BROKEN');
+    };
+  }
+
+  const handleMovement = (button) => {
+
+    if (button.defaultPrevented) {
+      // Do nothing if event already handled
+      return;
     }
+
+    setState(button.change)
+  }
+
+  useEffect(() => {
+    // actually logs correct "updated" coordinates
+    console.log(state)
   })
+
+  // Arrows and WASD listener
+  window.addEventListener("keydown", keydownHandler);
+  // Where do i need to removeEventListener??? 
+
+  // 3x3 is the size of the snake head  
 
   return (
     <div id="eisle">
@@ -92,16 +91,15 @@ function Game() {
         {
           movementButtons.map(button => (
             <button key={button.id} id={`btn-${button.id}`}
-              //decided to go with onFocus() instead of onClick()
-              onFocus={() => handleMovement(button)}
-              onTouchStart={() => handleMovement(button)}
+              onClick={handleMovement.bind(this, button)}
+              onTouchStart={handleMovement.bind(this, button)}
             >{button.label}
             </button>
           ))
         }
       </div>
       <div id="viewport">
-        <div id="head" style={{ left: x + "%", top: y + "%" }}></div>
+        <div id="head" style={{ left: state.x + "%", top: state.y + "%" }}></div>
       </div>
       <div id="buttons-container">
         <button id="btn-A">A</button>
