@@ -3,13 +3,13 @@ const { gql } = require("apollo-server-express");
 const typeDefs = gql`
   type User {
     _id: ID
-    userName: String!
+    username: String!
     password: String!
     email: String
-    Highscores: [userScores]
+    Highscores: [UserScores]
   }
 
-  type userScores {
+  type UserScores {
     _id: ID
     highscore: Int
   }
@@ -21,7 +21,7 @@ const typeDefs = gql`
 
   type Query {
     user: User
-    highscores(_id: ID!): userScores
+    highscores(_id: ID!): UserScores
   }
 
   type Mutation {

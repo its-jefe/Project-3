@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const userScores = new Schema({
+const UserScores = new Schema({
   highscore: {
     type: Number,
   },
 });
 
-module.exports = userScores;
+module.exports = UserScores;
