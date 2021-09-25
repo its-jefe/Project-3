@@ -28,33 +28,27 @@ function Game() {
   }
   const movementButtons = [btnUp, btnDown, btnLeft, btnRight]
 
+  // DO I NEED TO CHANGE THIS useCallBack to handleMovement instead????
   const keydownHandler = useCallback(
     (event) => {
       if (event.defaultPrevented) {
         return; // Do nothing if event already handled
       }
-      /* On focus is cool because it does not seem to allow competing clicks */
-      /* but it adjusts the screen and brings the element into focus when not in fullscreen */
-      // console.log(event)
       switch (event.code) {
-        case "ArrowDown":
-        case "KeyS":
-          // document.getElementById("btn-down").focus();
-          handleMovement(btnDown);
-          break;
         case "ArrowUp":
         case "KeyW":
-          // document.getElementById("btn-up").focus();
           handleMovement(btnUp);
+          break;
+        case "ArrowDown":
+        case "KeyS":
+          handleMovement(btnDown);
           break;
         case "ArrowLeft":
         case "KeyA":
-          // document.getElementById("btn-left").focus();
           handleMovement(btnLeft);
           break;
         case "ArrowRight":
         case "KeyD":
-          // document.getElementById("btn-right").focus()
           handleMovement(btnRight)
           break;
         default: console.log('BROKEN');
@@ -68,9 +62,13 @@ function Game() {
       // Do nothing if event already handled
       return;
     }
-    setState(button.change)
+
+    document.getElementById(`btn-${button.id}`).focus();
   }
 
+  // renders on initalization .. duh
+  // so the eventListener gets added from the start and on every render
+  // while also removing dublicates 
   useEffect(() => {
     console.log(state)
     // Arrows and WASD listener
@@ -78,7 +76,6 @@ function Game() {
     return () => document.removeEventListener("keydown", keydownHandler);
   }, [state, keydownHandler]);  
 
-  // Where do i need to removeEventListener??? 
   // 3x3 is the size of the snake head  
 
   return (
