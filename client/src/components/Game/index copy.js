@@ -1,3 +1,5 @@
+// WORKING COPY OF INDEX>JS
+
 import React, { useState, useEffect, useCallback } from "react"
 
 import './style.css'
@@ -62,7 +64,7 @@ function Game() {
       // Do nothing if event already handled
       return;
     }
-
+    setState(button.change)
     document.getElementById(`btn-${button.id}`).focus();
   }
 
