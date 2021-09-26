@@ -29,13 +29,22 @@ body {
   z-index: 5;
   overflow: hidden;
 }
+#grid-overlay {
+  display: relative;
+  width: 80vh;
+  height: 80vh;
+  border: 1vh inset rgba(128, 128, 128, 0.753);
+  background-color: black;
+  z-index: 5;
+  overflow: hidden;
+}
 
 #head {
   position: relative;
   transform: translate(-50%, -50%);
   background-color: purple;
-  height: 5vh;
-  width: 5vh;
+  height: 5%;
+  width: 5%;
   border-radius: 50%;
   z-index: 1;
 }
@@ -117,7 +126,7 @@ body {
   color: #00000060;
   border: 0.35vh outset rgba(248, 248, 248, 0.185);
   background: rgba(61, 104, 105, 0.418);
-  touch-action: manipulation
+  touch-action: manipulation;
   /* disables double tap zoom */
 }
 
@@ -147,5 +156,14 @@ body {
   background: rgba(45, 78, 78, 0.418);
   color: #ffffff31;
   text-shadow: 0px 0px 20px rgb(0, 255, 170);
+  outline: none;
+}
+
+#error:active,
+#error:focus {
+  border: 0.45vh inset rgba(248, 248, 248, 0.185);
+  background: rgba(78, 45, 45, 0.418);
+  color: #ffffff31;
+  text-shadow: 0px 0px 20px rgb(255, 0, 0);
   outline: none;
 }

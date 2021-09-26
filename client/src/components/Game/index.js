@@ -1,59 +1,45 @@
-import React, { useReducer, useEffect, useCallback } from "react"
+import React, { useReducer, useRef, useEffect, useCallback } from "react"
 
 import './style.css'
 
+// consider using an SVG or something that can be split
+// consider using 4 divs that come together to create the ball
+// really it doesn't look that bad tho so maybe forget ab it
+
 const xReducer = (x, direction) => {
+  if (x == 100 && direction == 1 ) {
+    return x = 0
+  }
+  if (x == 0 && direction == -1){
+    return x = 100
+  }
   return x + direction
 }
+
 const yReducer = (y, direction) => {
+  if (y == 100 && direction == 1 ) {
+    return y = 0
+  }
+  if (y == 0 && direction == -1){
+    return y = 100
+  }
   return y + direction
+}
+
+const dirReducer = (dir, direction) => {
+  return dir = direction
 }
 
 function Game() {
 
   const [x, setX] = useReducer(xReducer, 50)
   const [y, setY] = useReducer(yReducer, 50)
-
-  // const btnUp = {
-  //   id: "up",
-  //   label: "U",
-  //   axis: 'y',
-  //   val: -1,
-  //   move: function (init) {
-  //     setY(this.val)
-  //   }
-  // }
-  // const btnDown = {
-  //   id: "down",
-  //   label: "D",
-  //   axis: 'y',
-  //   val: 1,
-  //   move: function (init) {
-  //     setY(this.val)
-  //   }
-
-  // }
-  // const btnLeft = {
-  //   id: "left",
-  //   label: "L",
-  //   axis: 'x',
-  //   val: -1,
-  //   move: function (init) {
-  //     setX(this.val)
-  //   }
-  // }
-  // const btnRight = {
-  //   id: "right",
-  //   label: "R",
-  //   axis: 'x',
-  //   val: 1,
-  //   move: function (init) {
-  //     setX(this.val)
-  //   }
-  // }
+  const [dir, setDir] = useReducer(dirReducer, null)
 
   const btnUp = {
     id: "up",
+    current: dir,
+    opposite: "down",
     label: "U",
     axis: 'y',
     val: -1,
@@ -63,35 +49,42 @@ function Game() {
   }
   const btnDown = {
     id: "down",
+    current: dir,
+    opposite: "up",
     label: "D",
     axis: 'y',
     val: 1,
-    move: function (params) {
+    move: function () {
       setY(this.val)
     }
   }
   const btnLeft = {
     id: "left",
+    current: dir,
+    opposite: "right",
     label: "L",
     axis: 'x',
     val: -1,
-    move: function (params) {
+    move: function () {
       setX(this.val)
     }
   }
   const btnRight = {
     id: "right",
+    current: dir,
+    opposite: "left",
     label: "R",
     axis: 'x',
     val: 1,
-    move: function (params) {
+    move: function () {
       setX(this.val)
     }
   }
 
   const movementButtons = [btnUp, btnDown, btnLeft, btnRight]
-  
+
   let perpetuate;
+
   const handleMovement = useCallback(
     (button) => {
       if (button.defaultPrevented) {
@@ -99,20 +92,22 @@ function Game() {
         return;
       }
 
-      console.log("#1: " + perpetuate)
-
-      if(perpetuate){
-        console.log("CLEARING")
-        clearInterval(perpetuate)
+      /*
+      Only lets the snake turn left or right
+      */
+      setDir(button.id)
+      if (button.opposite !== button.current) {
+        document.getElementById(`btn-${button.id}`).focus();
+        if (perpetuate) {
+          clearInterval(perpetuate)
+        }
+        perpetuate = setInterval(() => {
+          button.move()
+        }, 30)
+      } else {
+        // stay the course
+        setDir(button.current)
       }
-
-      perpetuate = setInterval(()=>{
-        button.move()
-      }, 40)
-      console.log("#2: " + perpetuate)
-      
-
-      document.getElementById(`btn-${button.id}`).focus();
     }, [])
 
   // DO I NEED TO CHANGE THIS useCallBack to handleMovement instead????
@@ -139,23 +134,19 @@ function Game() {
         break;
       default: console.log('BROKEN');
     };
-  }, [btnDown, btnLeft, btnRight, btnUp, handleMovement]
-  )
+  }, [btnDown, btnLeft, btnRight, btnUp, handleMovement])
 
   // renders on initalization .. duh
   // so the eventListener gets added from the start and on every render
   // while also removing dublicates 
   useEffect(() => {
-    // setState({x: state.x+1, y: state.y+1})
     console.log("(" + x + "," + y + ")")
+    // console.log(dir)
 
     // Arrows and WASD listener
     document.addEventListener("keydown", keydownHandler);
     return () => document.removeEventListener("keydown", keydownHandler);
-  }, [x, y, keydownHandler]
-  );
-
-  // 3x3 is the size of the snake head  
+  }, [x, y, keydownHandler]);
 
   return (
     <div id="eisle">
