@@ -5,7 +5,7 @@ import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
-
+import RealHome from "./pages/RealHome"
 import Home from "./pages/Home"
 
 
@@ -40,8 +40,8 @@ function App() {
       <>
         <Navbar />
         <Switch>
-          <Route exact path='/' component={Home} />
-          
+          <Route exact path='/' component={RealHome} />
+          <Route exact path='/games' component={Home} />
           <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
         </Switch>
       </>
