@@ -1,4 +1,4 @@
-import React, { useReducer, useRef, useEffect, useCallback } from "react"
+import React, { useReducer, useEffect, useCallback } from "react"
 
 import './style.css'
 
@@ -6,24 +6,25 @@ import './style.css'
 // consider using 4 divs that come together to create the ball
 // really it doesn't look that bad tho so maybe forget ab it
 
-const xReducer = (x, direction) => {
-  if (x == 100 && direction == 1 ) {
+const xReducer = (x, influence) => {
+
+  if (x === 100 && influence === 1) {
     return x = 0
   }
-  if (x == 0 && direction == -1){
+  if (x === 0 && influence === -1) {
     return x = 100
   }
-  return x + direction
+  return x + influence
 }
 
-const yReducer = (y, direction) => {
-  if (y == 100 && direction == 1 ) {
+const yReducer = (y, influence) => {
+  if (y === 100 && influence === 1) {
     return y = 0
   }
-  if (y == 0 && direction == -1){
+  if (y === 0 && influence === -1) {
     return y = 100
   }
-  return y + direction
+  return y + influence
 }
 
 const dirReducer = (dir, direction) => {
@@ -38,7 +39,7 @@ function Game() {
 
   const btnUp = {
     id: "up",
-    current: dir,
+    currentDirection: dir,
     opposite: "down",
     label: "U",
     axis: 'y',
@@ -49,7 +50,7 @@ function Game() {
   }
   const btnDown = {
     id: "down",
-    current: dir,
+    currentDirection: dir,
     opposite: "up",
     label: "D",
     axis: 'y',
@@ -60,7 +61,9 @@ function Game() {
   }
   const btnLeft = {
     id: "left",
-    current: dir,
+    currentDirection: dir,
+    curX: x,
+    curY: y,
     opposite: "right",
     label: "L",
     axis: 'x',
@@ -71,7 +74,9 @@ function Game() {
   }
   const btnRight = {
     id: "right",
-    current: dir,
+    currentDirection: dir,
+    curX: x,
+    curY: y,
     opposite: "left",
     label: "R",
     axis: 'x',
@@ -92,21 +97,25 @@ function Game() {
         return;
       }
 
-      /*
-      Only lets the snake turn left or right
-      */
       setDir(button.id)
-      if (button.opposite !== button.current) {
-        document.getElementById(`btn-${button.id}`).focus();
+
+      // focus the [associated] button
+      document.getElementById(`btn-${button.id}`).focus();
+
+      // does not allow button to go directly in opposite direction (only Left and Right turns)
+      if (button.opposite !== button.currentDirection) {
+
+        // clears interval every time
         if (perpetuate) {
           clearInterval(perpetuate)
         }
+
         perpetuate = setInterval(() => {
           button.move()
-        }, 30)
+        }, 30) // 30 seems to be best
       } else {
         // stay the course
-        setDir(button.current)
+        setDir(button.currentDirection)
       }
     }, [])
 
@@ -140,7 +149,7 @@ function Game() {
   // so the eventListener gets added from the start and on every render
   // while also removing dublicates 
   useEffect(() => {
-    console.log("(" + x + "," + y + ")")
+    // console.log("(" + x + "," + y + ")")
     // console.log(dir)
 
     // Arrows and WASD listener
