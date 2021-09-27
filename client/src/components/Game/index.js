@@ -156,11 +156,11 @@ function Game() {
         }
         init = setInterval(() => {
           button.move()
-        }, 50)
+        }, 30)
       }
     }, [])
 
-  const keydownHandler = useCallback((event) => {
+  const keydownHandler = (event) => {
     if (event.defaultPrevented) {
       return; // Do nothing if event already handled
     }
@@ -183,7 +183,7 @@ function Game() {
         break;
       default: console.log('BROKEN');
     };
-  }, [btnDown, btnLeft, btnRight, btnUp, handleMovement])
+  }
 
   // listen for axis change and base keyListener updates on that 
   useEffect(() => {
@@ -191,16 +191,18 @@ function Game() {
     // Arrows and WASD listener
     document.addEventListener("keydown", keydownHandler);
     return () => document.removeEventListener("keydown", keydownHandler);
-  }, [axis]);
+  }, [axis, keydownHandler]);
 
   useEffect(() => {
     // Why is the y-axis off exactly by 5?
     if ((head.x) === (food.x) && (food.y) === (head.y - 5)) {
+      // reset food
       setFood()
+      // add to tail
       setTail()
     }
-    console.log(head)
-  }, [head])
+    // console.log(head)
+  }, [head, food])
 
   return (
     <div id="eisle">
