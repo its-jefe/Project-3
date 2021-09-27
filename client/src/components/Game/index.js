@@ -2,93 +2,140 @@ import React, { useReducer, useEffect, useCallback } from "react"
 
 import './style.css'
 
+// consider making a movement queue of some kind 
+// could help with the grid 
+// would help with the tail 
+
+// consider making a state object for head that includes head_el
+
 // consider using an SVG or something that can be split
 // consider using 4 divs that come together to create the ball
 // really it doesn't look that bad tho so maybe forget ab it
 
-const xReducer = (x, influence) => {
+const coordReducer = ({ x, y }, { axis, delta }) => {
 
-  if (x === 100 && influence === 1) {
-    return x = 0
+  if (axis === "x") {
+    if (x === 100 && delta === 1) {
+      return { x: 0, y: y }
+    }
+    if (x === 0 && delta === -1) {
+      return { x: 100, y: y }
+    }
+    return { x: x + delta, y: y }
   }
-  if (x === 0 && influence === -1) {
-    return x = 100
+
+  if (axis === "y") {
+    if (y === 100 && delta === 1) {
+      return { x: x, y: 0 }
+    }
+    if (y === 0 && delta === -1) {
+      return { x: x, y: 100 }
+    }
+    return { x: x, y: y + delta }
   }
-  return x + influence
 }
 
-const yReducer = (y, influence) => {
-  if (y === 100 && influence === 1) {
-    return y = 0
-  }
-  if (y === 0 && influence === -1) {
-    return y = 100
-  }
-  return y + influence
+// which axis the head is moving on ...
+const axisReducer = (axis, updateAxis) => {
+  axis = updateAxis
+  return axis
 }
 
-const dirReducer = (dir, direction) => {
-  return dir = direction
+const tailReducer = (tail, el_params) => {
+
+  // destructure stuff here
+  console.log("A")
+
+  const tail_el = <div id="tail" data-tail={tail.length}></div>
+
+  /* Updating tail
+  
+  > For size of head .. move in current direction 
+
+  */
+
+  tail.push(tail_el)
+
+  // add child divs to the head div
+  document.getElementById("head").append(tail_el)
+  
+  return tail
 }
+
+const foodReducer = (food) => {
+
+  return { //return new food.coords properties
+    x: Math.floor(Math.random() * 95 + 3),
+    y: Math.floor(Math.random() * 95 + 3)
+  }
+}
+
+// gobbled is an array of tails
+
 
 function Game() {
 
-  const [x, setX] = useReducer(xReducer, 50)
-  const [y, setY] = useReducer(yReducer, 50)
-  const [dir, setDir] = useReducer(dirReducer, null)
+  const [head, setHead] = useReducer(coordReducer, { x: 50, y: 50 })
+  const [axis, setAxis] = useReducer(axisReducer, null)
+
+  // places food div randomly within the viewport
+  const [food, setFood] = useReducer(foodReducer, { x: Math.floor(Math.random() * 90 + 5), y: Math.floor(Math.random() * 90 + 5) })
+  const [tail, setTail] = useReducer(tailReducer, [])
+
+  let head_el = <div id="head" style={{ left: head.x + "%", top: head.y + "%" }}></div>
 
   const btnUp = {
     id: "up",
-    currentDirection: dir,
     opposite: "down",
+    currentCoords: head,
     label: "U",
     axis: 'y',
+    currentAxis: axis,
     val: -1,
     move: function () {
-      setY(this.val)
+      setHead({ axis: this.axis, delta: this.val })
     }
   }
   const btnDown = {
     id: "down",
-    currentDirection: dir,
     opposite: "up",
+    currentCoords: head,
     label: "D",
     axis: 'y',
+    currentAxis: axis,
     val: 1,
     move: function () {
-      setY(this.val)
+      setHead({ axis: this.axis, delta: this.val })
     }
   }
   const btnLeft = {
     id: "left",
-    currentDirection: dir,
-    curX: x,
-    curY: y,
     opposite: "right",
+    currentCoords: head,
     label: "L",
     axis: 'x',
+    currentAxis: axis,
     val: -1,
     move: function () {
-      setX(this.val)
+      setHead({ axis: this.axis, delta: this.val })
     }
   }
   const btnRight = {
     id: "right",
-    currentDirection: dir,
-    curX: x,
-    curY: y,
     opposite: "left",
+    currentCoords: head,
     label: "R",
     axis: 'x',
+    currentAxis: axis,
     val: 1,
     move: function () {
-      setX(this.val)
+      setHead({ axis: this.axis, delta: this.val })
     }
   }
 
   const movementButtons = [btnUp, btnDown, btnLeft, btnRight]
 
-  let perpetuate;
+  let init;
 
   const handleMovement = useCallback(
     (button) => {
@@ -97,29 +144,22 @@ function Game() {
         return;
       }
 
-      setDir(button.id)
+      setAxis(button.axis)
 
       // focus the [associated] button
       document.getElementById(`btn-${button.id}`).focus();
 
-      // does not allow button to go directly in opposite direction (only Left and Right turns)
-      if (button.opposite !== button.currentDirection) {
-
-        // clears interval every time
-        if (perpetuate) {
-          clearInterval(perpetuate)
+      // if the current axis (at time of keypress) is not the same as direction trying to go
+      if (button.currentAxis !== button.axis) {
+        if (init) {
+          clearInterval(init)
         }
-
-        perpetuate = setInterval(() => {
+        init = setInterval(() => {
           button.move()
-        }, 30) // 30 seems to be best
-      } else {
-        // stay the course
-        setDir(button.currentDirection)
+        }, 50)
       }
     }, [])
 
-  // DO I NEED TO CHANGE THIS useCallBack to handleMovement instead????
   const keydownHandler = useCallback((event) => {
     if (event.defaultPrevented) {
       return; // Do nothing if event already handled
@@ -145,17 +185,22 @@ function Game() {
     };
   }, [btnDown, btnLeft, btnRight, btnUp, handleMovement])
 
-  // renders on initalization .. duh
-  // so the eventListener gets added from the start and on every render
-  // while also removing dublicates 
+  // listen for axis change and base keyListener updates on that 
   useEffect(() => {
-    // console.log("(" + x + "," + y + ")")
-    // console.log(dir)
-
+    console.log("current: " + axis) 
     // Arrows and WASD listener
     document.addEventListener("keydown", keydownHandler);
     return () => document.removeEventListener("keydown", keydownHandler);
-  }, [x, y, keydownHandler]);
+  }, [axis]);
+
+  useEffect(() => {
+    // Why is the y-axis off exactly by 5?
+    if ((head.x) === (food.x) && (food.y) === (head.y - 5)) {
+      setFood()
+      setTail()
+    }
+    console.log(head)
+  }, [head])
 
   return (
     <div id="eisle">
@@ -171,7 +216,8 @@ function Game() {
         }
       </div>
       <div id="viewport">
-        <div id="head" style={{ left: x + "%", top: y + "%" }}></div>
+        {head_el}
+        <div id="food" style={{ left: food.x + "%", top: food.y + "%" }}></div>
       </div>
       <div id="buttons-container">
         <button id="btn-A">A</button>
@@ -182,5 +228,3 @@ function Game() {
 }
 
 export default Game;
-
-// accesskey global attribute provides a hint for generating a keyboard shortcut for the current element.
