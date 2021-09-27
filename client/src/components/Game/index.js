@@ -58,7 +58,7 @@ const tailReducer = (tail, el_params) => {
 
   // add child divs to the head div
   document.getElementById("head").append(tail_el)
-  
+
   return tail
 }
 
@@ -185,13 +185,16 @@ function Game() {
     };
   }
 
-  // listen for axis change and base keyListener updates on that 
   useEffect(() => {
-    console.log("current: " + axis) 
     // Arrows and WASD listener
     document.addEventListener("keydown", keydownHandler);
     return () => document.removeEventListener("keydown", keydownHandler);
-  }, [axis, keydownHandler]);
+  })
+
+  // on axis change
+  useEffect(() => {
+    console.log("current: " + axis)
+  }, [axis]);
 
   useEffect(() => {
     // Why is the y-axis off exactly by 5?
