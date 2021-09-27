@@ -44,6 +44,7 @@ function App() {
           <Route exact path='/games' component={Home} />
           <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
         </Switch>
+        <Home></Home>
       </>
     </Router>
        </ApolloProvider>
