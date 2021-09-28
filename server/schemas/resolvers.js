@@ -60,6 +60,20 @@ const resolvers = {
 
       return { token, user };
     },
+
+    addScore: async(parent,{highscore }, context) => {
+      if (context.user){
+       return await User.findByIdAndUpdate(context.user._id, {
+        Highscores: highscore
+      }, {
+        new:true
+      }
+      )
+    }
+    throw new AuthenticationError("Not logged in");
+  }
+    
+
   },
 };
 
