@@ -175,8 +175,6 @@ function Game() {
     setTail(head)
   }, [head, food])
 
-
-
   return (
     <div id="eisle">
       <div id="arrows-container">
