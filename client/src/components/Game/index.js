@@ -6,156 +6,126 @@ import './style.css'
 // could help with the grid 
 // would help with the tail 
 
-// consider making a state object for head that includes head_el
-
 // consider using an SVG or something that can be split
 // consider using 4 divs that come together to create the ball
 // really it doesn't look that bad tho so maybe forget ab it
 
-const coordReducer = ({ x, y }, { axis, delta }) => {
+const snakeReducer = (() => {
+  // might use this to keep track of the entire body of the snake (head and tial)
+})
+
+const coordReducer = ({ x, y, direction }, { axis, change }) => {
+  // x boundaries
+  if (x === 100 && change === 1) return { x: 0, y: y, direction: { axis: axis, change: change } }
+  if (x === 0 && change === -1) return { x: 100, y: y, direction: { axis: axis, change: change } }
+  // y boundaries
+  if (y === 100 && change === 1) return { x: x, y: 0, direction: { axis: axis, change: change } }
+  if (y === 0 && change === -1) return { x: x, y: 100, direction: { axis: axis, change: change } }
+
+  // if you want to change coordinates... 
+  // the current axis must be divisible by size of head (5)
+  // if its not have this fuction recur (call itself passing coord values until true)
+
+  // COMPARE THESE AGAINST EACH OTHER 
+  console.log(direction.axis, direction.change) // current head direction
+  console.log(axis, change) // button direction
 
   if (axis === "x") {
-    if (x === 100 && delta === 1) {
-      return { x: 0, y: y }
-    }
-    if (x === 0 && delta === -1) {
-      return { x: 100, y: y }
-    }
-    return { x: x + delta, y: y }
+    return { x: x + change, y: y, direction: { axis: axis, change: change } }
   }
 
   if (axis === "y") {
-    if (y === 100 && delta === 1) {
-      return { x: x, y: 0 }
-    }
-    if (y === 0 && delta === -1) {
-      return { x: x, y: 100 }
-    }
-    return { x: x, y: y + delta }
+    return { x: x, y: y + change, direction: { axis: axis, change: change } }
   }
-}
+};
 
-// which axis the head is moving on ...
-const axisReducer = (axis, updateAxis) => {
-  axis = updateAxis
-  return axis
-}
+const foodReducer = () => {
+  //return new food.coords properties
+  return {
+    x: Math.floor(Math.random() * 97 + 2),
+    y: Math.floor(Math.random() * 97 + 2)
+  };
+};
 
-const tailReducer = (tail, el_params) => {
+const tailReducer = ({ x, y }, head) => { // fires twice in development ... but not in production 
 
-  // destructure stuff here
-  console.log("A")
+  // tail needs to chase head around
 
-  const tail_el = <div id="tail" data-tail={tail.length}></div>
+  // each tail element needs to store the proceeded elements 5 movements 
+
+  // THIS IS MOOT BECAUSE I NEED TO MAKE THIS A GRID
+
+  // so destructure head
+
+  // console.log(head.x)
+  // console.log(head.y)
+  // console.log(head.direction)
+
+  // console.log(x, y)
 
   /* Updating tail
-  
   > For size of head .. move in current direction 
-
   */
-
-  tail.push(tail_el)
-
-  // add child divs to the head div
-  document.getElementById("head").append(tail_el)
-
-  return tail
-}
-
-const foodReducer = (food) => {
-
-  return { //return new food.coords properties
-    x: Math.floor(Math.random() * 95 + 3),
-    y: Math.floor(Math.random() * 95 + 3)
-  }
-}
-
-// gobbled is an array of tails
-
+  return { x: head.x - 5, y: head.y - 5 }
+};
 
 function Game() {
 
-  const [head, setHead] = useReducer(coordReducer, { x: 50, y: 50 })
-  const [axis, setAxis] = useReducer(axisReducer, null)
-
-  // places food div randomly within the viewport
-  const [food, setFood] = useReducer(foodReducer, { x: Math.floor(Math.random() * 90 + 5), y: Math.floor(Math.random() * 90 + 5) })
+  // INITIATE
+  const [head, setHead] = useReducer(coordReducer, { x: 50, y: 50, direction: { axis: null, change: null } })
+  const [food, setFood] = useReducer(foodReducer, { x: Math.floor(Math.random() * 97 + 2), y: Math.floor(Math.random() * 97 + 2) })
   const [tail, setTail] = useReducer(tailReducer, [])
-
-  let head_el = <div id="head" style={{ left: head.x + "%", top: head.y + "%" }}></div>
-
   const btnUp = {
     id: "up",
     opposite: "down",
-    currentCoords: head,
     label: "U",
     axis: 'y',
-    currentAxis: axis,
     val: -1,
-    move: function () {
-      setHead({ axis: this.axis, delta: this.val })
-    }
   }
   const btnDown = {
     id: "down",
     opposite: "up",
-    currentCoords: head,
     label: "D",
     axis: 'y',
-    currentAxis: axis,
     val: 1,
-    move: function () {
-      setHead({ axis: this.axis, delta: this.val })
-    }
   }
   const btnLeft = {
     id: "left",
     opposite: "right",
-    currentCoords: head,
     label: "L",
     axis: 'x',
-    currentAxis: axis,
     val: -1,
-    move: function () {
-      setHead({ axis: this.axis, delta: this.val })
-    }
   }
   const btnRight = {
     id: "right",
     opposite: "left",
-    currentCoords: head,
     label: "R",
     axis: 'x',
-    currentAxis: axis,
     val: 1,
-    move: function () {
-      setHead({ axis: this.axis, delta: this.val })
-    }
   }
-
   const movementButtons = [btnUp, btnDown, btnLeft, btnRight]
 
+  // this is probably wrong (not good practice)
   let init;
 
   const handleMovement = useCallback(
-    (button) => {
+    (button, head) => {
       if (button.defaultPrevented) {
         // Do nothing if event already handled
         return;
       }
 
-      setAxis(button.axis)
-
       // focus the [associated] button
       document.getElementById(`btn-${button.id}`).focus();
-
       // if the current axis (at time of keypress) is not the same as direction trying to go
-      if (button.currentAxis !== button.axis) {
+
+      // does not fire movement interval unless head is changing axis (allows only left n right turns)
+      if (head.direction.axis !== button.axis) {
         if (init) {
           clearInterval(init)
         }
         init = setInterval(() => {
-          button.move()
+          setHead({ axis: button.axis, change: button.val })
         }, 30)
       }
     }, [])
@@ -167,45 +137,45 @@ function Game() {
     switch (event.code) {
       case "ArrowUp":
       case "KeyW":
-        handleMovement(btnUp);
+        handleMovement(btnUp, head);
         break;
       case "ArrowDown":
       case "KeyS":
-        handleMovement(btnDown);
+        handleMovement(btnDown, head);
         break;
       case "ArrowLeft":
       case "KeyA":
-        handleMovement(btnLeft);
+        handleMovement(btnLeft, head);
         break;
       case "ArrowRight":
       case "KeyD":
-        handleMovement(btnRight)
+        handleMovement(btnRight, head);
         break;
       default: console.log('BROKEN');
     };
   }
 
-  useEffect(() => {
-    // Arrows and WASD listener
-    document.addEventListener("keydown", keydownHandler);
-    return () => document.removeEventListener("keydown", keydownHandler);
-  })
-
   // on axis change
   useEffect(() => {
-    console.log("current: " + axis)
-  }, [axis]);
+    // Arrows and WASD listener
+    console.log(head.direction)
+
+    document.addEventListener("keydown", keydownHandler);
+    return () => document.removeEventListener("keydown", keydownHandler);
+
+  }, [head.direction.axis]); // I ONLY WANT THIS TO RUN ON AXIS CHANGE BUT REACT IS COMPAINING ABOUT DEPS ..? Psh
 
   useEffect(() => {
-    // Why is the y-axis off exactly by 5?
-    if ((head.x) === (food.x) && (food.y) === (head.y - 5)) {
+
+    if ((head.x) === (food.x) && (food.y) === (head.y)) {
       // reset food
       setFood()
       // add to tail
-      setTail()
     }
-    // console.log(head)
+    setTail(head)
   }, [head, food])
+
+
 
   return (
     <div id="eisle">
@@ -213,16 +183,17 @@ function Game() {
         {
           movementButtons.map(button => (
             <button key={button.id} id={`btn-${button.id}`}
-              onClick={handleMovement.bind(this, button)}
-              onTouchStart={handleMovement.bind(this, button)}
+              onClick={handleMovement.bind(this, (button), head)}
+              onTouchStart={handleMovement.bind(this, (button), head)}
             >{button.label}
             </button>
           ))
         }
       </div>
       <div id="viewport">
-        {head_el}
+        <div id="head" style={{ left: head.x + "%", top: head.y + "%" }}></div>
         <div id="food" style={{ left: food.x + "%", top: food.y + "%" }}></div>
+        {/* <div id="tail" style={{ left: tail.x + "%", top: tail.y + "%" }}></div> */}
       </div>
       <div id="buttons-container">
         <button id="btn-A">A</button>

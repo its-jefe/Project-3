@@ -13,6 +13,7 @@ const SignupForm = () => {
   });
 
   const [addUser, { error }] = useMutation(ADD_USER);
+  console.log(error) // just to keep it from throwing react error
 
   const [validated] = useState(false);
 

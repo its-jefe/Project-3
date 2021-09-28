@@ -21,42 +21,41 @@ body {
 }
 
 #viewport {
-  display: relative;
+  position: relative;
   width: 80vh;
   height: 80vh;
   border: 1vh inset rgba(128, 128, 128, 0.753);
   background-color: black;
-  z-index: 5;
   overflow: hidden;
 }
 
 #head {
-  position: relative;
+  position: absolute;
+  bottom: 50%;
+  right: 50%;
   transform: translate(-50%, -50%);
   background-color: rgb(199, 0, 199);
   height: 5%;
   width: 5%;
+  border: 1px solid rgb(218, 171, 255);
   /* border-radius: 50%; */
-  border: none;
 }
 
 #tail {
-  display: table;
-  position: relative;
+  position: absolute;
   transform: translate(-50%, -50%);
   background-color: rgb(155, 0, 155);
-  height: 3%;
-  width: 3%;
+  height: 5%;
+  width: 5%;
   /* border-radius: 50%; */
-  border: none;
 }
 
 #food {
-  position: relative;
+  position: absolute;
   transform: translate(-50%, -50%);
   background-color: rgb(0, 255, 55);
-  height: 3%;
-  width: 3%;
+  height: 5%;
+  width: 5%;
   /* border-radius: 50%; */
 }
 
