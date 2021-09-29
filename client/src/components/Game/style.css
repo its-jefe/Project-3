@@ -19,7 +19,25 @@ body {
   border-radius: 25%;
   background: radial-gradient(black, rgb(53, 92, 94) 30%);
 }
-
+#tinytron { /*opposite of jumbotron*/
+  position: absolute;
+  width: 80vh; /*same as viewport*/
+  transform: translate(-50%, -50%);
+  top: 5%;
+  left: 50%;
+  display: flex;
+  justify-content: space-around;
+}
+#score {
+  color: white;
+  font-size: 2.5vmax;
+  text-shadow: 0 0 2px yellow;
+}
+#time {
+  color: white;
+  font-size: 2.5vmax;
+  text-shadow: 0 0 2px yellow;
+}
 #viewport {
   position: relative;
   width: 80vh;
@@ -28,7 +46,6 @@ body {
   background-color: black;
   overflow: hidden;
 }
-
 #head {
   position: absolute;
   bottom: 50%;
