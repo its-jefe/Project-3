@@ -10,6 +10,8 @@ import './style.css'
 // consider using 4 divs that come together to create the ball
 // really it doesn't look that bad tho so maybe forget ab it
 
+const startTime = 60;
+
 const coordReducer = ({ x, y, direction }, { axis, change }) => {
   // x boundaries
   if (x === 100 && change === 1) return { x: 0, y: y, direction: { axis: axis, change: change } }
@@ -93,7 +95,7 @@ function Game() {
   const [food, setFood] = useReducer(foodReducer, { x: Math.floor(Math.random() * 97 + 2), y: Math.floor(Math.random() * 97 + 2) })
   const [tail, setTail] = useReducer(tailReducer, [])
   const [score, setScore] = useReducer(scoreReducer, 0)
-  const [time, setTime] = useReducer(timeReducer, 15)
+  const [time, setTime] = useReducer(timeReducer, startTime)
 
   const btnUp = {
     id: "up",
