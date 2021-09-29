@@ -10,9 +10,7 @@ import './style.css'
 // consider using 4 divs that come together to create the ball
 // really it doesn't look that bad tho so maybe forget ab it
 
-const snakeReducer = (() => {
-  // might use this to keep track of the entire body of the snake (head and tial)
-})
+const startTime = 60;
 
 const coordReducer = ({ x, y, direction }, { axis, change }) => {
   // x boundaries
@@ -28,12 +26,24 @@ const coordReducer = ({ x, y, direction }, { axis, change }) => {
 
   // COMPARE THESE AGAINST EACH OTHER 
   console.log(direction.axis, direction.change) // current head direction
-  console.log(axis, change) // button direction
+  console.log(axis, change) // button direction -> direction in which user would like to go...
 
+  // if changing axis... 
+  // aka 
+  // if button axis is different then the current (direction.axis)
+  if (axis != direction.axis) {
+    // do not allow change axis unless (direction.axis % 5 === 0)
+    if (direction.axis === "y") {
+
+    }
+    if (direction.axis === "x") {
+
+    }
+  }
+  // continue moving in current direction (change on axis)
   if (axis === "x") {
     return { x: x + change, y: y, direction: { axis: axis, change: change } }
   }
-
   if (axis === "y") {
     return { x: x, y: y + change, direction: { axis: axis, change: change } }
   }
@@ -46,6 +56,19 @@ const foodReducer = () => {
     y: Math.floor(Math.random() * 97 + 2)
   };
 };
+
+const scoreReducer = (score, newScore) => {
+  return score + newScore
+}
+const timeReducer = (time, timer) => {
+  if(time !== 0){
+    return time - 1
+  }else{
+    clearInterval(timer)
+    console.log(timer) // curious if this value is anything I can use
+    console.log("GAME OVER!")
+  }
+}
 
 const tailReducer = ({ x, y }, head) => { // fires twice in development ... but not in production 
 
@@ -75,6 +98,9 @@ function Game() {
   const [head, setHead] = useReducer(coordReducer, { x: 50, y: 50, direction: { axis: null, change: null } })
   const [food, setFood] = useReducer(foodReducer, { x: Math.floor(Math.random() * 97 + 2), y: Math.floor(Math.random() * 97 + 2) })
   const [tail, setTail] = useReducer(tailReducer, [])
+  const [score, setScore] = useReducer(scoreReducer, 0)
+  const [time, setTime] = useReducer(timeReducer, startTime)
+
   const btnUp = {
     id: "up",
     opposite: "down",
@@ -106,7 +132,9 @@ function Game() {
   const movementButtons = [btnUp, btnDown, btnLeft, btnRight]
 
   // this is probably wrong (not good practice)
-  let init;
+  let firstMove;
+
+  // on each activation of arrow button (key, click, or touch)
 
   const handleMovement = useCallback(
     (button, head) => {
@@ -115,16 +143,23 @@ function Game() {
         return;
       }
 
+      if (!firstMove){ // if time is equal to its start point
+        // begin timer
+        let timer = setInterval(()=> {
+          setTime(timer)
+        }, 1000)
+      }
+
       // focus the [associated] button
       document.getElementById(`btn-${button.id}`).focus();
       // if the current axis (at time of keypress) is not the same as direction trying to go
 
       // does not fire movement interval unless head is changing axis (allows only left n right turns)
       if (head.direction.axis !== button.axis) {
-        if (init) {
-          clearInterval(init)
+        if (firstMove) {
+          clearInterval(firstMove)
         }
-        init = setInterval(() => {
+        firstMove = setInterval(() => {
           setHead({ axis: button.axis, change: button.val })
         }, 30)
       }
@@ -151,14 +186,14 @@ function Game() {
       case "KeyD":
         handleMovement(btnRight, head);
         break;
-      default: console.log('BROKEN');
+      default: console.log('Defaulted');
     };
   }
 
   // on axis change
   useEffect(() => {
     // Arrows and WASD listener
-    console.log(head.direction)
+    // console.log(head.direction)
 
     document.addEventListener("keydown", keydownHandler);
     return () => document.removeEventListener("keydown", keydownHandler);
@@ -166,14 +201,21 @@ function Game() {
   }, [head.direction.axis]); // I ONLY WANT THIS TO RUN ON AXIS CHANGE BUT REACT IS COMPAINING ABOUT DEPS ..? Psh
 
   useEffect(() => {
-
     if ((head.x) === (food.x) && (food.y) === (head.y)) {
       // reset food
       setFood()
+
+      // add to score 
+      setScore(10)
+
       // add to tail
+      // setTail()
     }
-    setTail(head)
   }, [head, food])
+
+  useEffect(() => {
+
+  }, [time])
 
   return (
     <div id="eisle">
@@ -187,6 +229,10 @@ function Game() {
             </button>
           ))
         }
+      </div>
+      <div id="tinytron">
+        <div id="score">Score: {score}</div>
+        <div id="time">Time: {time}</div>
       </div>
       <div id="viewport">
         <div id="head" style={{ left: head.x + "%", top: head.y + "%" }}></div>
