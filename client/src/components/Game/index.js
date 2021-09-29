@@ -63,7 +63,11 @@ const scoreReducer = (score, newScore) => {
 const timeReducer = (time, timer) => {
   if(time !== 0){
     return time - 1
-  }else{clearInterval(timer)}
+  }else{
+    clearInterval(timer)
+    console.log(timer) // curious if this value is anything I can use
+    console.log("GAME OVER!")
+  }
 }
 
 const tailReducer = ({ x, y }, head) => { // fires twice in development ... but not in production 
