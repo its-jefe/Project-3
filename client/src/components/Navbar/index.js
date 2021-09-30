@@ -14,7 +14,7 @@ const AppNavbar = () => {
   return (
     <>
       <Navbar id="navbar" bg="dark" variant="dark" expand="lg">
-        <Container fluid>
+        <Container fluid id="container">
           <Navbar.Brand as={Link} to="/" id="link">
             <span id="btn">Home page</span>
           </Navbar.Brand>
@@ -26,8 +26,8 @@ const AppNavbar = () => {
               {/* if user is logged in show saved books and logout */}
               {Auth.loggedIn() ? (
                 <>
-                  <Nav.Link as={Link} to="/games">
-                    Snake
+                  <Nav.Link as={Link} to="/gamepage">
+                    <span id="btn">Snake</span>
                   </Nav.Link>
                   <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
                 </>
