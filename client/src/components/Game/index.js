@@ -12,6 +12,12 @@ import './style.css'
 
 const startTime = 60;
 
+const startReducer = (start, val) => {
+  console.log(val)
+  start = val
+  return start
+}
+
 const coordReducer = ({ x, y, direction }, { axis, change }) => {
   // x boundaries
   if (x === 100 && change === 1) return { x: 0, y: y, direction: { axis: axis, change: change } }
@@ -48,7 +54,6 @@ const coordReducer = ({ x, y, direction }, { axis, change }) => {
     return { x: x, y: y + change, direction: { axis: axis, change: change } }
   }
 };
-
 const foodReducer = () => {
   //return new food.coords properties
   return {
@@ -56,48 +61,24 @@ const foodReducer = () => {
     y: Math.floor(Math.random() * 97 + 2)
   };
 };
-
 const scoreReducer = (score, newScore) => {
   return score + newScore
 }
 const timeReducer = (time, timer) => {
-  if(time !== 0){
+  if (time !== 0) {
     return time - 1
-  }else{
+  } else {
     clearInterval(timer)
     console.log(timer) // curious if this value is anything I can use
     console.log("GAME OVER!")
   }
 }
 
-const tailReducer = ({ x, y }, head) => { // fires twice in development ... but not in production 
-
-  // tail needs to chase head around
-
-  // each tail element needs to store the proceeded elements 5 movements 
-
-  // THIS IS MOOT BECAUSE I NEED TO MAKE THIS A GRID
-
-  // so destructure head
-
-  // console.log(head.x)
-  // console.log(head.y)
-  // console.log(head.direction)
-
-  // console.log(x, y)
-
-  /* Updating tail
-  > For size of head .. move in current direction 
-  */
-  return { x: head.x - 5, y: head.y - 5 }
-};
-
 function Game() {
-
   // INITIATE
+  const [start, setStart] = useReducer(startReducer, false)
   const [head, setHead] = useReducer(coordReducer, { x: 50, y: 50, direction: { axis: null, change: null } })
   const [food, setFood] = useReducer(foodReducer, { x: Math.floor(Math.random() * 97 + 2), y: Math.floor(Math.random() * 97 + 2) })
-  const [tail, setTail] = useReducer(tailReducer, [])
   const [score, setScore] = useReducer(scoreReducer, 0)
   const [time, setTime] = useReducer(timeReducer, startTime)
 
@@ -131,37 +112,53 @@ function Game() {
   }
   const movementButtons = [btnUp, btnDown, btnLeft, btnRight]
 
+  const btnA = {
+    id: "Forward",
+    label: "A",
+    val: 1,
+  }
+  const btnB = {
+    id: "Backward",
+    label: "B",
+    val: -1,
+  }
+
   // this is probably wrong (not good practice)
   let firstMove;
 
   // on each activation of arrow button (key, click, or touch)
 
   const handleMovement = useCallback(
-    (button, head) => {
-      if (button.defaultPrevented) {
-        // Do nothing if event already handled
-        return;
-      }
-
-      if (!firstMove){ // if time is equal to its start point
-        // begin timer
-        let timer = setInterval(()=> {
-          setTime(timer)
-        }, 1000)
-      }
-
+    (button, head, start) => {
+      console.log(start)
+      console.log(button)
       // focus the [associated] button
       document.getElementById(`btn-${button.id}`).focus();
-      // if the current axis (at time of keypress) is not the same as direction trying to go
 
-      // does not fire movement interval unless head is changing axis (allows only left n right turns)
-      if (head.direction.axis !== button.axis) {
-        if (firstMove) {
-          clearInterval(firstMove)
+      if (start) { // you are in the lobby
+        console.log(button)
+      }
+      if (start === true) { // you are in the game
+        if (button.defaultPrevented) {
+          // Do nothing if event already handled
+          return;
         }
-        firstMove = setInterval(() => {
-          setHead({ axis: button.axis, change: button.val })
-        }, 30)
+
+        // begin timer
+        let timer = setInterval(() => {
+          setTime(timer)
+        }, 1000)
+
+        // if the current axis (at time of keypress) is not the same as direction trying to go
+        // does not fire movement interval unless head is changing axis (allows only left n right turns)
+        if (head.direction.axis !== button.axis) {
+          if (firstMove) {
+            clearInterval(firstMove)
+          }
+          firstMove = setInterval(() => {
+            setHead({ axis: button.axis, change: button.val })
+          }, 30)
+        }
       }
     }, [])
 
@@ -186,6 +183,12 @@ function Game() {
       case "KeyD":
         handleMovement(btnRight, head);
         break;
+      case "Enter":
+        handleMovement(btnA);
+        break;
+      case "KeyB":
+        handleMovement(btnB);
+        break;
       default: console.log('Defaulted');
     };
   }
@@ -193,29 +196,20 @@ function Game() {
   // on axis change
   useEffect(() => {
     // Arrows and WASD listener
-    // console.log(head.direction)
 
     document.addEventListener("keydown", keydownHandler);
     return () => document.removeEventListener("keydown", keydownHandler);
 
-  }, [head.direction.axis]); // I ONLY WANT THIS TO RUN ON AXIS CHANGE BUT REACT IS COMPAINING ABOUT DEPS ..? Psh
+  }, [start, head.direction.axis]); // I ONLY WANT THIS TO RUN ON AXIS CHANGE BUT REACT IS COMPAINING ABOUT DEPS ..? Psh
 
   useEffect(() => {
     if ((head.x) === (food.x) && (food.y) === (head.y)) {
-      // reset food
+      // re set food
       setFood()
-
       // add to score 
       setScore(10)
-
-      // add to tail
-      // setTail()
     }
   }, [head, food])
-
-  useEffect(() => {
-
-  }, [time])
 
   return (
     <div id="eisle">
@@ -223,22 +217,14 @@ function Game() {
         {
           movementButtons.map(button => (
             <button key={button.id} id={`btn-${button.id}`}
-              onClick={handleMovement.bind(this, (button), head)}
-              onTouchStart={handleMovement.bind(this, (button), head)}
+              onClick={handleMovement.bind(this, button, head)}
+              onTouchStart={handleMovement.bind(this, button, head)}
             >{button.label}
             </button>
           ))
         }
       </div>
-      <div id="tinytron">
-        <div id="score">Score: {score}</div>
-        <div id="time">Time: {time}</div>
-      </div>
-      <div id="viewport">
-        <div id="head" style={{ left: head.x + "%", top: head.y + "%" }}></div>
-        <div id="food" style={{ left: food.x + "%", top: food.y + "%" }}></div>
-        {/* <div id="tail" style={{ left: tail.x + "%", top: tail.y + "%" }}></div> */}
-      </div>
+      {renderGame(start, head, food, score, time)}
       <div id="buttons-container">
         <button id="btn-A">A</button>
         <button id="btn-B">B</button>

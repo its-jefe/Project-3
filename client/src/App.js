@@ -8,7 +8,6 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import RealHome from "./pages/RealHome"
 import Home from "./pages/Home"
 
-
 const client = new ApolloClient({
   request: (operation) => {
     const token = localStorage.getItem("id_token");
@@ -21,17 +20,6 @@ const client = new ApolloClient({
   },
   uri: "/graphql",
 });
-
-
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header"></header>
-//       <Home />
-//     </div>
-//   );
-// }
 
 function App() {
   return (
@@ -50,8 +38,5 @@ function App() {
        </ApolloProvider>
   );
 }
-
-
-
 
 export default App;
