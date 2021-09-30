@@ -33,20 +33,6 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-<<<<<<< HEAD
-    <Router>
-      <>
-        <Navbar />
-        <Switch>
-          <Route exact path='/' component={RealHome} />
-          <Route exact path='/games' component={Home} />
-          <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
-        </Switch>
-        <Home></Home>
-      </>
-    </Router>
-       </ApolloProvider>
-=======
       <Router>
         <>
           <RealHome />
@@ -57,7 +43,6 @@ function App() {
         </>
       </Router>
     </ApolloProvider>
->>>>>>> josh/styling
   );
 }
 
