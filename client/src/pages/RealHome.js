@@ -5,7 +5,7 @@ const RealHome = () => {
   return (
     <>
       <div id="heading">
-        <h1>Welcome to our snake game!</h1>
+        <h1>Welcome to our game!</h1>
       </div>
     </>
   );

@@ -13,6 +13,7 @@ html {
   text-align: center;
   padding-top: 5em;
   flex-wrap: wrap;
+  overflow: hidden;
 }
 
 #link:link {
