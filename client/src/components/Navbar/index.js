@@ -19,6 +19,7 @@ const AppNavbar = () => {
             <span id="btn">Home page</span>
           </Navbar.Brand>
 
+
           <Navbar.Toggle aria-controls="navbar" />
 
           <Navbar.Collapse id="navbar">
@@ -65,7 +66,6 @@ const AppNavbar = () => {
                 </Nav.Item>
               </Nav>
             </Modal.Title> */}
-            <span>Close -{">"}</span>
           </Modal.Header>
 
           <Modal.Body>

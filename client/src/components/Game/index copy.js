@@ -12,12 +12,7 @@ import './style.css'
 
 const startTime = 60;
 
-const startReducer = (start, val) => {
-  start = val
-  return start
-}
-
-const headReducer = ({ x, y, direction, init }, { axis, change }) => {
+const coordReducer = ({ x, y, direction }, { axis, change }) => {
   // x boundaries
   if (x === 100 && change === 1) return { x: 0, y: y, direction: { axis: axis, change: change } }
   if (x === 0 && change === -1) return { x: 100, y: y, direction: { axis: axis, change: change } }
@@ -30,23 +25,29 @@ const headReducer = ({ x, y, direction, init }, { axis, change }) => {
   // if its not have this fuction recur (call itself passing coord values until true)
 
   // COMPARE THESE AGAINST EACH OTHER 
-  // console.log(direction.axis, direction.change) // current head direction
-  // console.log(axis, change) // button direction -> direction in which user would like to go...
+  console.log(direction.axis, direction.change) // current head direction
+  console.log(axis, change) // button direction -> direction in which user would like to go...
 
   // if changing axis... 
   // aka 
   // if button axis is different then the current (direction.axis)
-  // do not allow change axis unless (direction.axis % 5 === 0)
-  //   if (direction.axis === "y") {
+  if (axis != direction.axis) {
+    // do not allow change axis unless (direction.axis % 5 === 0)
+    if (direction.axis === "y") {
 
-  // continue moving in current direction (change along axis)
+    }
+    if (direction.axis === "x") {
+
+    }
+  }
+  // continue moving in current direction (change on axis)
   if (axis === "x") {
     return { x: x + change, y: y, direction: { axis: axis, change: change } }
   }
   if (axis === "y") {
     return { x: x, y: y + change, direction: { axis: axis, change: change } }
   }
-}
+};
 
 const foodReducer = () => {
   //return new food.coords properties
@@ -59,7 +60,6 @@ const foodReducer = () => {
 const scoreReducer = (score, newScore) => {
   return score + newScore
 }
-
 const timeReducer = (time, timer) => {
   if(time !== 0){
     return time - 1
@@ -95,17 +95,12 @@ const tailReducer = ({ x, y }, head) => { // fires twice in development ... but 
 function Game() {
 
   // INITIATE
-
-  /*⬇️ Reducers ⬇️*/
-  const [start, setStart] = useReducer(startReducer, false)
-  const [head, setHead] = useReducer(headReducer, { x: 50, y: 50, direction: { axis: null, change: null }, init: false })
+  const [head, setHead] = useReducer(coordReducer, { x: 50, y: 50, direction: { axis: null, change: null } })
   const [food, setFood] = useReducer(foodReducer, { x: Math.floor(Math.random() * 97 + 2), y: Math.floor(Math.random() * 97 + 2) })
   const [tail, setTail] = useReducer(tailReducer, [])
   const [score, setScore] = useReducer(scoreReducer, 0)
   const [time, setTime] = useReducer(timeReducer, startTime)
-  /*⬆️ Reducers ⬆️*/
 
-  /*⬇️ Buttons ⬇️*/
   const btnUp = {
     id: "up",
     opposite: "down",
@@ -136,34 +131,22 @@ function Game() {
   }
   const movementButtons = [btnUp, btnDown, btnLeft, btnRight]
 
-  const btnA = {
-    id: "Forward",
-    label: "A",
-    val: 1,
-  }
-  const btnB = {
-    id: "Backward",
-    label: "B",
-    val: -1,
-  }
-  /*⬆️ Buttons ⬆️*/
-
+  // this is probably wrong (not good practice)
   let firstMove;
 
   // on each activation of arrow button (key, click, or touch)
+
   const handleMovement = useCallback(
-    (button, head, start) => {
+    (button, head) => {
       if (button.defaultPrevented) {
         // Do nothing if event already handled
         return;
       }
 
-      if (start == false) {
-        setStart(true)
-
+      if (!firstMove){ // if time is equal to its start point
         // begin timer
-        let timer = setInterval(() => {
-          setTime(timer, setStart())
+        let timer = setInterval(()=> {
+          setTime(timer)
         }, 1000)
       }
 
@@ -189,19 +172,19 @@ function Game() {
     switch (event.code) {
       case "ArrowUp":
       case "KeyW":
-        handleMovement(btnUp, head, start);
+        handleMovement(btnUp, head);
         break;
       case "ArrowDown":
       case "KeyS":
-        handleMovement(btnDown, head, start);
+        handleMovement(btnDown, head);
         break;
       case "ArrowLeft":
       case "KeyA":
-        handleMovement(btnLeft, head, start);
+        handleMovement(btnLeft, head);
         break;
       case "ArrowRight":
       case "KeyD":
-        handleMovement(btnRight, head, start);
+        handleMovement(btnRight, head);
         break;
       default: console.log('Defaulted');
     };
@@ -210,9 +193,12 @@ function Game() {
   // on axis change
   useEffect(() => {
     // Arrows and WASD listener
+    // console.log(head.direction)
+
     document.addEventListener("keydown", keydownHandler);
     return () => document.removeEventListener("keydown", keydownHandler);
-  }, [start, head.direction.axis]); // I ONLY WANT THIS TO RUN ON AXIS CHANGE BUT REACT IS COMPAINING ABOUT DEPS ..? Psh
+
+  }, [head.direction.axis]); // I ONLY WANT THIS TO RUN ON AXIS CHANGE BUT REACT IS COMPAINING ABOUT DEPS ..? Psh
 
   useEffect(() => {
     if ((head.x) === (food.x) && (food.y) === (head.y)) {
@@ -232,39 +218,32 @@ function Game() {
   }, [time])
 
   return (
-    <>
-      <button id="back-btn">Back</button>
-
-      <div id="eisle">
-        <div id="tinytron">
-          <div id="score">Score<span>{score}</span></div>
-          <div id="time">Time<span>{time}</span></div>
-        </div>
-        <div id="viewport-container">
-          <div id="viewport">
-            <div id="head" style={{ left: head.x + "%", top: head.y + "%" }}></div>
-            <div id="food" style={{ left: food.x + "%", top: food.y + "%" }}></div>
-            {/* <div id="tail" style={{ left: tail.x + "%", top: tail.y + "%" }}></div> */}
-          </div>
-        </div>
-        <div id="buttons-container-container">
-          <div id="arrows-container">
-            {
-              movementButtons.map(button => (
-                <button key={button.id} id={`btn-${button.id}`}
-                  onClick={handleMovement.bind(this, (button), head, start)}
-                  onTouchStart={handleMovement.bind(this, (button), head, start)}
-                >{button.label}</button>
-              ))
-            }
-          </div>
-          <div id="buttons-container">
-            <button id="btn-A">A</button>
-            <button id="btn-B">B</button>
-          </div>
-        </div>
+    <div id="eisle">
+      <div id="arrows-container">
+        {
+          movementButtons.map(button => (
+            <button key={button.id} id={`btn-${button.id}`}
+              onClick={handleMovement.bind(this, (button), head)}
+              onTouchStart={handleMovement.bind(this, (button), head)}
+            >{button.label}
+            </button>
+          ))
+        }
       </div>
-  </>
+      <div id="tinytron">
+        <div id="score">Score: {score}</div>
+        <div id="time">Time: {time}</div>
+      </div>
+      <div id="viewport">
+        <div id="head" style={{ left: head.x + "%", top: head.y + "%" }}></div>
+        <div id="food" style={{ left: food.x + "%", top: food.y + "%" }}></div>
+        {/* <div id="tail" style={{ left: tail.x + "%", top: tail.y + "%" }}></div> */}
+      </div>
+      <div id="buttons-container">
+        <button id="btn-A">A</button>
+        <button id="btn-B">B</button>
+      </div>
+    </div>
   )
 }
 

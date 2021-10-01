@@ -1,196 +1,246 @@
-* {
-  margin: 0;
+@media (min-width: 0) {
+  #eisle {
+    display: flex;
+    flex-wrap: wrap;
+    background: radial-gradient(black, rgb(46, 80, 82) 99%);
+    border: 0.1px solid rgba(0, 0, 0, 0);
+    border-radius: 15%;
+    min-width: 100%;
+    min-height: fit-content;
+    box-shadow: 0 0 1vmax 1vmax rgba(152, 255, 233, 0.301);
+    /* padding-top: 5vh; */
+    overscroll-behavior: none;
+    overflow: hidden;
+  }
+
+  #tinytron {
+    font-size: 2.5vmax;
+    height: fit-content;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    justify-self: center;
+    padding: 0 10vmin;
+  }
+  #score,
+  #time {
+    color: rgba(255, 255, 255, 0.15);
+  }
+
+  #score span,
+  #time span {
+    color: rgba(255, 255, 255, 0.301);
+    text-shadow: 0 0 2px rgba(255, 255, 0, 0.5);
+  }
+
+  #viewport-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: fit-content;
+    padding-bottom: 1vh;
+  }
+  #viewport {
+    height: 80vmin;
+    width: 80vmin;
+    position: relative;
+    border: 1vmin inset rgba(128, 128, 128, 0.753);
+    background-color: black;
+    overflow: hidden;
+  }
+  #head {
+    position: absolute;
+    bottom: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(199, 0, 199);
+    height: 5%;
+    width: 5%;
+    border: 1px solid rgb(218, 171, 255);
+  }
+  #tail {
+    /* in progress */
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background-color: rgb(155, 0, 155);
+    height: 5%;
+    width: 5%;
+  }
+  #food {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background-color: rgb(0, 255, 55);
+    height: 5%;
+    width: 5%;
+  }
+
+  #buttons-container-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    justify-content: space-around;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+
+  #arrows-container,
+  #buttons-container {
+    position: relative;
+    width: 45vmin;
+    height: 45vmin;
+    border: outset 0.75vmin rgba(128, 128, 128, 0.25);
+    border-radius: 40%;
+    background: radial-gradient(#00000000, rgba(0, 0, 0, 0.192));
+    transition: all 0.3s ease;
+  }
+
+  button {
+    font-size: 5vmin;
+    touch-action: manipulation;
+  }
+  button:hover {
+    border: 0.35vmin outset rgba(248, 248, 248, 0.185);
+    background: rgba(54, 94, 94, 0.418);
+  }
+  button:active,
+  button:focus {
+    border: 0.45vmin inset rgba(248, 248, 248, 0.185);
+    background: rgba(45, 78, 78, 0.418);
+    color: #ffffff31;
+    text-shadow: 0px 0px 20px rgb(0, 255, 170);
+    outline: none;
+  }
+  #btn-up {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+  #btn-down {
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+  #btn-left {
+    top: 50%;
+    left: 0;
+    transform: translate(0, -50%);
+  }
+  #btn-right {
+    top: 50%;
+    right: 0;
+    transform: translate(0, -50%);
+  }
+  #btn-A,
+  #btn-B {
+    height: 45%;
+    width: 45%;
+    border-radius: 50%;
+  }
+  #btn-A {
+    left: 5%;
+    top: 60%;
+    transform: translate(0, -50%);
+  }
+  #btn-B {
+    right: 5%;
+    top: 40%;
+    transform: translate(0, -50%);
+  }
+
+  #arrows-container button,
+  #buttons-container button {
+    position: absolute;
+    font-size: 5vmin;
+    color: #00000060;
+    background: rgba(61, 104, 105, 0.418);
+    /* disables double tap zoom */
+    font-weight: bold;
+    height: 37%;
+    width: 37%;
+    border-radius: 35%;
+    transition: all 0.3s ease;
+    text-align: center;
+    color: #00000060;
+    border: 0.35vh outset rgba(248, 248, 248, 0.185);
+    background: rgba(61, 104, 105, 0.418);
+  }
+
+  #buttons-container button {
+    height: 45%;
+    width: 45%;
+    border-radius: 50%;
+  }
+
+  #back-btn {
+    font-size: 2vmin;
+    background: rgba(61, 104, 105, 0.418);
+    color: rgba(255, 255, 255, 0.5);
+    border: 0.35vmin inset rgba(255, 255, 255, 0.185);
+    border-radius: 50%;
+    position: absolute;
+    top: 2vmin;
+    left: 4vmin;
+    transform: translate(-50%, -50%);
+  }
+
+  #btn-A:hover,
+  #btn-B:hover,
+  #btn-up:hover,
+  #btn-down:hover,
+  #btn-left:hover,
+  #btn-right:hover {
+    border: 0.35vmin outset rgba(248, 248, 248, 0.185);
+    background: rgba(54, 94, 94, 0.418);
+  }
+
+  #btn-A:active,
+  #btn-A:focus,
+  #btn-B:active,
+  #btn-B:focus,
+  #btn-up:active,
+  #btn-up:focus,
+  #btn-down:active,
+  #btn-down:focus,
+  #btn-left:active,
+  #btn-left:focus,
+  #btn-right:active,
+  #btn-right:focus {
+    border: 0.45vmin inset rgba(248, 248, 248, 0.185);
+    background: rgba(45, 78, 78, 0.418);
+    color: #ffffff31;
+    text-shadow: 0px 0px 20px rgb(0, 255, 170);
+    outline: none;
+  }
+
+  #error:active,
+  #error:focus {
+    border: 0.45vmin inset rgba(248, 248, 248, 0.185);
+    background: rgba(78, 45, 45, 0.418);
+    color: #ffffff31;
+    text-shadow: 0px 0px 20px rgb(255, 0, 0);
+    outline: none;
+  }
 }
 
-body {
-  overflow-y: hidden;
-  overflow-x: hidden;
-  background: radial-gradient(black, rgb(46, 80, 82) 99%);
-}
+/* 2 */
+@media (min-width: 600px) and (orientation: landscape) {
+  #viewport {
+    height: 45vw;
+    width: 45vw;
+  }
+  #arrows-container,
+  #buttons-container {
+    position: relative;
+    width: 27vw;
+    height: 27vw;
+  }
 
-#eisle {
-  position: relative;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  border: 0.5vh solid rgba(128, 128, 128, 0.753);
-  border-radius: 25%;
-  background: radial-gradient(black, rgb(53, 92, 94) 30%);
-}
-#tinytron { /*opposite of jumbotron*/
-  position: absolute;
-  width: 80vh; /*same as viewport*/
-  transform: translate(-50%, -50%);
-  top: 5%;
-  left: 50%;
-  display: flex;
-  justify-content: space-around;
-}
-#score {
-  color: white;
-  font-size: 2.5vmax;
-  text-shadow: 0 0 2px yellow;
-}
-#time {
-  color: white;
-  font-size: 2.5vmax;
-  text-shadow: 0 0 2px yellow;
-}
-#viewport {
-  position: relative;
-  width: 80vh;
-  height: 80vh;
-  border: 1vh inset rgba(128, 128, 128, 0.753);
-  background-color: black;
-  overflow: hidden;
-}
-#head {
-  position: absolute;
-  bottom: 50%;
-  right: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgb(199, 0, 199);
-  height: 5%;
-  width: 5%;
-  border: 1px solid rgb(218, 171, 255);
-  /* border-radius: 50%; */
-}
-
-#tail {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  background-color: rgb(155, 0, 155);
-  height: 5%;
-  width: 5%;
-  /* border-radius: 50%; */
-}
-
-#food {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  background-color: rgb(0, 255, 55);
-  height: 5%;
-  width: 5%;
-  /* border-radius: 50%; */
-}
-
-#arrows-container,
-#buttons-container {
-  position: relative;
-  width: 45vmin;
-  height: 45vmin;
-  border: outset 0.75vh rgba(128, 128, 128, 0.25);
-  border-radius: 40%;
-  background: radial-gradient(#00000000, rgba(0, 0, 0, 0.192));
-}
-#buttons-container {
-  height: 30vmin;
-  /* border: none; */
-  /* background: #00000000; */
-}
-
-#btn-up,
-#btn-right,
-#btn-down,
-#btn-left {
-  position: absolute;
-  font-weight: bold;
-  height: 17vh;
-  width: 17vh;
-  border-radius: 35%;
-  /* transition: all 1s ease; */
-}
-
-#btn-up {
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
-}
-#btn-down {
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
-}
-#btn-left {
-  top: 50%;
-  left: 0;
-  transform: translate(0, -50%);
-}
-#btn-right {
-  top: 50%;
-  right: 0;
-  transform: translate(0, -50%);
-}
-
-#btn-A,
-#btn-B {
-  position: absolute;
-  font-weight: bold;
-  height: 20vh;
-  width: 20vh;
-  border-radius: 50%;
-}
-#btn-A {
-  left: 5%;
-  top: 60%;
-  transform: translate(0, -50%);
-}
-#btn-B {
-  right: 5%;
-  top: 40%;
-  transform: translate(0, -50%);
-}
-
-#btn-A,
-#btn-B,
-#btn-up,
-#btn-down,
-#btn-left,
-#btn-right {
-  font-size: 5vh;
-  color: #00000060;
-  border: 0.35vh outset rgba(248, 248, 248, 0.185);
-  background: rgba(61, 104, 105, 0.418);
-  touch-action: manipulation;
-  /* disables double tap zoom */
-}
-
-#btn-A:hover,
-#btn-B:hover,
-#btn-up:hover,
-#btn-down:hover,
-#btn-left:hover,
-#btn-right:hover {
-  border: 0.35vh outset rgba(248, 248, 248, 0.185);
-  background: rgba(54, 94, 94, 0.418);
-}
-
-#btn-A:active,
-#btn-A:focus,
-#btn-B:active,
-#btn-B:focus,
-#btn-up:active,
-#btn-up:focus,
-#btn-down:active,
-#btn-down:focus,
-#btn-left:active,
-#btn-left:focus,
-#btn-right:active,
-#btn-right:focus {
-  border: 0.45vh inset rgba(248, 248, 248, 0.185);
-  background: rgba(45, 78, 78, 0.418);
-  color: #ffffff31;
-  text-shadow: 0px 0px 20px rgb(0, 255, 170);
-  outline: none;
-}
-
-#error:active,
-#error:focus {
-  border: 0.45vh inset rgba(248, 248, 248, 0.185);
-  background: rgba(78, 45, 45, 0.418);
-  color: #ffffff31;
-  text-shadow: 0px 0px 20px rgb(255, 0, 0);
-  outline: none;
+  #buttons-container-container {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+  }
 }
