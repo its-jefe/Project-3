@@ -109,19 +109,8 @@
   }
   
   button {
-    position: absolute;
     font-size: 5vmin;
-    color: #00000060;
-    border: 0.5vmin outset rgba(248, 248, 248, 0.185);
-    background: rgba(61, 104, 105, 0.418);
     touch-action: manipulation;
-    /* disables double tap zoom */
-    font-weight: bold;
-    height: 37%;
-    width: 37%;
-    border-radius: 35%;
-    transition: all 0.3s ease;
-    text-align: center;
   }
   button:hover{
     border: 0.35vmin outset rgba(248, 248, 248, 0.185);
@@ -172,12 +161,26 @@
     transform: translate(0, -50%);
   }
   
+  #back-btn,
   #btn-A,
   #btn-B,
   #btn-up,
   #btn-down,
   #btn-left,
-  #btn-right {
+  #btn-right{
+    position: absolute;
+    font-size: 5vmin;
+    color: #00000060;
+    border: 0.5vmin outset rgba(248, 248, 248, 0.185);
+    background: rgba(61, 104, 105, 0.418);
+    touch-action: manipulation;
+    /* disables double tap zoom */
+    font-weight: bold;
+    height: 37%;
+    width: 37%;
+    border-radius: 35%;
+    transition: all 0.3s ease;
+    text-align: center;
     color: #00000060;
     border: 0.35vh outset rgba(248, 248, 248, 0.185);
     background: rgba(61, 104, 105, 0.418);
