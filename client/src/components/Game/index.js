@@ -144,6 +144,10 @@ function Game() {
           return;
         }
 
+<<<<<<< HEAD
+=======
+      if (!firstMove) { // if time is equal to its start point
+>>>>>>> main
         // begin timer
         let timer = setInterval(() => {
           setTime(timer)
@@ -212,6 +216,7 @@ function Game() {
   }, [head, food])
 
   return (
+<<<<<<< HEAD
     <div id="eisle">
       <div id="arrows-container">
         {
@@ -228,8 +233,45 @@ function Game() {
       <div id="buttons-container">
         <button id="btn-A">A</button>
         <button id="btn-B">B</button>
+=======
+    <>
+      <button id="back-btn">Back</button>
+      <div id="eisle">
+
+
+        <div id="tinytron">
+          <div id="score">Score: {score}</div>
+          <div id="time">Time: {time}</div>
+        </div>
+        <div id = "viewport-container">
+          <div id="viewport">
+            <div id="head" style={{ left: head.x + "%", top: head.y + "%" }}></div>
+            <div id="food" style={{ left: food.x + "%", top: food.y + "%" }}></div>
+            {/* <div id="tail" style={{ left: tail.x + "%", top: tail.y + "%" }}></div> */}
+          </div>
+        </div>
+
+        <div id="buttons-container-container">
+          <div id="arrows-container">
+            {
+              movementButtons.map(button => (
+                <button key={button.id} id={`btn-${button.id}`}
+                  onClick={handleMovement.bind(this, (button), head)}
+                  onTouchStart={handleMovement.bind(this, (button), head)}
+                >{button.label}
+                </button>
+              ))
+            }
+          </div>
+          <div id="buttons-container">
+            <button id="btn-A">A</button>
+            <button id="btn-B">B</button>
+          </div>
+        </div>
+
+>>>>>>> main
       </div>
-    </div>
+    </>
   )
 }
 

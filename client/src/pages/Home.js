@@ -1,14 +1,17 @@
 import React from "react";
-
-import Game from "../components/Game"
-
-// console.log(React)
-// console.log(Game)
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { ApolloProvider } from "@apollo/react-hooks";
+import Navbar from "../components/Navbar";
+import ApolloClient from "apollo-boost";
+import RealHome from "./RealHome";
 
 const Home = () => {
-    return (
-        <Game />
-    );
+  return (
+    <Router>
+        <RealHome />
+        <Navbar />
+    </Router>
+  );
 };
 
 export default Home;

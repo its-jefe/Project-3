@@ -1,12 +1,13 @@
 // import logo from './logo.svg';
 // import './App.css';
-import React from "react"
-import Navbar from './components/Navbar';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import React from "react";
+
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
-import RealHome from "./pages/RealHome"
-import Home from "./pages/Home"
+
+import Home from "./pages/Home";
+import GamePage from "./pages/GamePage.js";
 
 const client = new ApolloClient({
   request: (operation) => {
@@ -24,18 +25,13 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-    <Router>
-      <>
-        <Navbar />
+      <Router>
         <Switch>
-          <Route exact path='/' component={RealHome} />
-          <Route exact path='/games' component={Home} />
-          <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
+          <Route exact path="/" component={Home} />
+          <Route path="/gamepage" component={GamePage} />
         </Switch>
-        <Home></Home>
-      </>
-    </Router>
-       </ApolloProvider>
+      </Router>
+    </ApolloProvider>
   );
 }
 
