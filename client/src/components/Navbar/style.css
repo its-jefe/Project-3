@@ -2,7 +2,7 @@
   color: white;
   text-align: center;
   padding: 0 1.5em 0 1.5em;
-  font-size: 85px;
+  font-size: 8vmin;
 }
 
 #container {
@@ -28,7 +28,7 @@
 #btn {
   margin: 5px;
   padding: 15px;
-  font-size: 50px;
+  font-size: 6vmin;
   border: 2px solid black;
   background-color: rgb(53, 92, 94);
   border-radius: 50px;

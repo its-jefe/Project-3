@@ -203,12 +203,6 @@ function Game() {
       case "KeyD":
         handleMovement(btnRight, head, start);
         break;
-      case "Enter":
-        handleMovement(btnA, head, start);
-        break;
-      case "KeyB":
-        handleMovement(btnB, head, start);
-        break;
       default: console.log('Defaulted');
     };
   }
@@ -243,8 +237,8 @@ function Game() {
 
       <div id="eisle">
         <div id="tinytron">
-          <div id="score">Score <span>{score}</span></div>
-          <div id="time">Time <span>{time}</span></div>
+          <div id="score">Score<span>{score}</span></div>
+          <div id="time">Time<span>{time}</span></div>
         </div>
         <div id="viewport-container">
           <div id="viewport">
@@ -258,8 +252,8 @@ function Game() {
             {
               movementButtons.map(button => (
                 <button key={button.id} id={`btn-${button.id}`}
-                  onClick={handleMovement.bind(this, (button), head)}
-                  onTouchStart={handleMovement.bind(this, (button), head)}
+                  onClick={handleMovement.bind(this, (button), head, start)}
+                  onTouchStart={handleMovement.bind(this, (button), head, start)}
                 >{button.label}</button>
               ))
             }

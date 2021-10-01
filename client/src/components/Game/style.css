@@ -1,26 +1,18 @@
 @media (min-width: 0) {
-  #eisle{
+  #eisle {
     display: flex;
     flex-wrap: wrap;
     background: radial-gradient(black, rgb(46, 80, 82) 99%);
-    border: 1px inset black;
+    border: 0.1px solid rgba(0, 0, 0, 0);
     border-radius: 15%;
     min-width: 100%;
     min-height: fit-content;
+    box-shadow: 0 0 1vmax 1vmax rgba(152, 255, 233, 0.301);
     /* padding-top: 5vh; */
-    /* overscroll-behavior: none; */ /* does not work */
+    overscroll-behavior: none;
+    overflow: hidden;
   }
-  #back-btn {
-    font-size: 2vmin;
-    height: fit-content;
-    width: fit-content;
-    color: rgba(255, 255, 255, 0.5);
-    border: .5vmin inset rgba(255, 255, 255, 0.431);
-    position: absolute;
-    top: 2vmin;
-    left: 4vmin;
-    transform: translate(-50%, -50%);
-  }
+
   #tinytron {
     font-size: 2.5vmax;
     height: fit-content;
@@ -33,16 +25,16 @@
   }
   #score,
   #time {
-    color: rgba(0, 0, 0, 0.5);
-  } 
+    color: rgba(255, 255, 255, 0.15);
+  }
 
   #score span,
-  #time span{
+  #time span {
     color: rgba(255, 255, 255, 0.301);
-    text-shadow: 0 0 2px greenyellow;
+    text-shadow: 0 0 2px rgba(255, 255, 0, 0.5);
   }
- 
-  #viewport-container{
+
+  #viewport-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,7 +42,7 @@
     height: fit-content;
     padding-bottom: 1vh;
   }
-  #viewport{
+  #viewport {
     height: 80vmin;
     width: 80vmin;
     position: relative;
@@ -68,7 +60,8 @@
     width: 5%;
     border: 1px solid rgb(218, 171, 255);
   }
-  #tail { /* in progress */
+  #tail {
+    /* in progress */
     position: absolute;
     transform: translate(-50%, -50%);
     background-color: rgb(155, 0, 155);
@@ -82,7 +75,7 @@
     height: 5%;
     width: 5%;
   }
-  
+
   #buttons-container-container {
     display: flex;
     width: 100%;
@@ -104,15 +97,11 @@
     transition: all 0.3s ease;
   }
 
-  #buttons-container {
-    height: 30vmin;
-  }
-  
   button {
     font-size: 5vmin;
     touch-action: manipulation;
   }
-  button:hover{
+  button:hover {
     border: 0.35vmin outset rgba(248, 248, 248, 0.185);
     background: rgba(54, 94, 94, 0.418);
   }
@@ -123,7 +112,7 @@
     color: #ffffff31;
     text-shadow: 0px 0px 20px rgb(0, 255, 170);
     outline: none;
-  }  
+  }
   #btn-up {
     top: 0;
     left: 50%;
@@ -160,20 +149,13 @@
     top: 40%;
     transform: translate(0, -50%);
   }
-  
-  #back-btn,
-  #btn-A,
-  #btn-B,
-  #btn-up,
-  #btn-down,
-  #btn-left,
-  #btn-right{
+
+  #arrows-container button,
+  #buttons-container button {
     position: absolute;
     font-size: 5vmin;
     color: #00000060;
-    border: 0.5vmin outset rgba(248, 248, 248, 0.185);
     background: rgba(61, 104, 105, 0.418);
-    touch-action: manipulation;
     /* disables double tap zoom */
     font-weight: bold;
     height: 37%;
@@ -185,7 +167,25 @@
     border: 0.35vh outset rgba(248, 248, 248, 0.185);
     background: rgba(61, 104, 105, 0.418);
   }
-  
+
+  #buttons-container button {
+    height: 45%;
+    width: 45%;
+    border-radius: 50%;
+  }
+
+  #back-btn {
+    font-size: 2vmin;
+    background: rgba(61, 104, 105, 0.418);
+    color: rgba(255, 255, 255, 0.5);
+    border: 0.35vmin inset rgba(255, 255, 255, 0.185);
+    border-radius: 50%;
+    position: absolute;
+    top: 2vmin;
+    left: 4vmin;
+    transform: translate(-50%, -50%);
+  }
+
   #btn-A:hover,
   #btn-B:hover,
   #btn-up:hover,
@@ -195,7 +195,7 @@
     border: 0.35vmin outset rgba(248, 248, 248, 0.185);
     background: rgba(54, 94, 94, 0.418);
   }
-  
+
   #btn-A:active,
   #btn-A:focus,
   #btn-B:active,
@@ -214,7 +214,7 @@
     text-shadow: 0px 0px 20px rgb(0, 255, 170);
     outline: none;
   }
-  
+
   #error:active,
   #error:focus {
     border: 0.45vmin inset rgba(248, 248, 248, 0.185);
@@ -226,16 +226,16 @@
 }
 
 /* 2 */
-@media (min-width: 600px) and (orientation:landscape) {
-  #viewport{
-    height:45vw;
-    width:45vw;
-  }  
+@media (min-width: 600px) and (orientation: landscape) {
+  #viewport {
+    height: 45vw;
+    width: 45vw;
+  }
   #arrows-container,
   #buttons-container {
-  position: relative;
-  width: 27vw;
-  height: 27vw;
+    position: relative;
+    width: 27vw;
+    height: 27vw;
   }
 
   #buttons-container-container {
