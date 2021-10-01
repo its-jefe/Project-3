@@ -61,22 +61,46 @@ const scoreReducer = (score, newScore) => {
 }
 
 const timeReducer = (time, timer) => {
-  if (time !== 0) {
+  if(time !== 0){
     return time - 1
-  } else {
+  }else{
     clearInterval(timer)
     console.log(timer) // curious if this value is anything I can use
     console.log("GAME OVER!")
   }
 }
 
+const tailReducer = ({ x, y }, head) => { // fires twice in development ... but not in production 
+
+  // tail needs to chase head around
+
+  // each tail element needs to store the proceeded elements 5 movements 
+
+  // THIS IS MOOT BECAUSE I NEED TO MAKE THIS A GRID
+
+  // so destructure head
+
+  // console.log(head.x)
+  // console.log(head.y)
+  // console.log(head.direction)
+
+  // console.log(x, y)
+
+  /* Updating tail
+  > For size of head .. move in current direction 
+  */
+  return { x: head.x - 5, y: head.y - 5 }
+};
+
 function Game() {
+
   // INITIATE
 
   /*⬇️ Reducers ⬇️*/
   const [start, setStart] = useReducer(startReducer, false)
   const [head, setHead] = useReducer(headReducer, { x: 50, y: 50, direction: { axis: null, change: null }, init: false })
   const [food, setFood] = useReducer(foodReducer, { x: Math.floor(Math.random() * 97 + 2), y: Math.floor(Math.random() * 97 + 2) })
+  const [tail, setTail] = useReducer(tailReducer, [])
   const [score, setScore] = useReducer(scoreReducer, 0)
   const [time, setTime] = useReducer(timeReducer, startTime)
   /*⬆️ Reducers ⬆️*/
@@ -198,12 +222,20 @@ function Game() {
 
   useEffect(() => {
     if ((head.x) === (food.x) && (food.y) === (head.y)) {
-      // re set food
+      // reset food
       setFood()
+
       // add to score 
       setScore(10)
+
+      // add to tail
+      // setTail()
     }
   }, [head, food])
+
+  useEffect(() => {
+
+  }, [time])
 
   return (
     <>
@@ -220,6 +252,7 @@ function Game() {
             {/* <div id="tail" style={{ left: tail.x + "%", top: tail.y + "%" }}></div> */}
           </div>
         </div>
+      </div>
 
         <div id="buttons-container-container">
           <div id="arrows-container">
@@ -237,8 +270,7 @@ function Game() {
             <button id="btn-B">B</button>
           </div>
         </div>
-      </div>
-    </>
+  </>
   )
 }
 

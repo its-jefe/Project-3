@@ -10,13 +10,11 @@
   display: flex;
   justify-content: space-around;
 }
-
 #score {
   color: white;
   font-size: 2.5vmax;
   text-shadow: 0 0 2px yellow;
 }
-
 #time {
   color: white;
   font-size: 2.5vmax;
@@ -89,8 +87,8 @@ button {
   /* disables double tap zoom */
   position: absolute;
   font-weight: bold;
-  height: 16.5vmin;
-  width: 16.5vmin;
+  height: 17vh;
+  width: 17vh;
   border-radius: 35%;
   transition: all 0.3s ease;
   text-align: center;
@@ -142,22 +140,75 @@ button:focus {
 
 #btn-A,
 #btn-B {
-  height: 17vmin;
-  width: 17vmin;
   position: absolute;
   font-weight: bold;
+  height: 20vh;
+  width: 20vh;
   border-radius: 50%;
 }
 #btn-A {
-  left: 10%;
+  left: 5%;
   top: 60%;
   transform: translate(0, -50%);
 }
 #btn-B {
-  right: 10%;
+  right: 5%;
   top: 40%;
   transform: translate(0, -50%);
 }
+
+#btn-A,
+#btn-B,
+#btn-up,
+#btn-down,
+#btn-left,
+#btn-right {
+  font-size: 5vh;
+  color: #00000060;
+  border: 0.35vh outset rgba(248, 248, 248, 0.185);
+  background: rgba(61, 104, 105, 0.418);
+  touch-action: manipulation;
+  /* disables double tap zoom */
+}
+
+#btn-A:hover,
+#btn-B:hover,
+#btn-up:hover,
+#btn-down:hover,
+#btn-left:hover,
+#btn-right:hover {
+  border: 0.35vh outset rgba(248, 248, 248, 0.185);
+  background: rgba(54, 94, 94, 0.418);
+}
+
+#btn-A:active,
+#btn-A:focus,
+#btn-B:active,
+#btn-B:focus,
+#btn-up:active,
+#btn-up:focus,
+#btn-down:active,
+#btn-down:focus,
+#btn-left:active,
+#btn-left:focus,
+#btn-right:active,
+#btn-right:focus {
+  border: 0.45vh inset rgba(248, 248, 248, 0.185);
+  background: rgba(45, 78, 78, 0.418);
+  color: #ffffff31;
+  text-shadow: 0px 0px 20px rgb(0, 255, 170);
+  outline: none;
+}
+
+#error:active,
+#error:focus {
+  border: 0.45vh inset rgba(248, 248, 248, 0.185);
+  background: rgba(78, 45, 45, 0.418);
+  color: #ffffff31;
+  text-shadow: 0px 0px 20px rgb(255, 0, 0);
+  outline: none;
+}
+
 
 @media (min-width: 0) {
   /* this is the same as not using a media query... */
