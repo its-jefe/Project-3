@@ -1,4 +1,12 @@
+* {
+  /* margin: 0; */
+  /* box-sizing: content-box; */
+}
 
+body {
+  height: 100vh;
+  background: radial-gradient(black, rgb(46, 80, 82) 99%);
+}
 #eisle{
   overscroll-behavior: none;
 }
@@ -23,44 +31,7 @@
   font-size: 2.5vmax;
   text-shadow: 0 0 2px yellow;
 }
-
-#viewportLobby{
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: center;
-  width: 80vh;
-  height: 80vh;
-  border: 1vh inset rgba(128, 128, 128, 0.753);
-  background-color: black;
-  overflow: hidden;
-}
-#gamebtn-start,
-#gamebtn-highscores{
-  width: 100%;
-  padding: 2% 0;
-  color: rgba(255, 255, 255, 0.45);
-  text-shadow: 
-  0 0 1vmax rgb(255, 255, 255);
-  font-size: 2.5vmax;
-  text-align: center;
-  background-color:#00000000;
-  /* pointer-events: none; */
-}
-#gamebtn-start:focus,
-#gamebtn-highscores:focus,
-#gamebtn-start:active,
-#gamebtn-highscores:active
-{
-  color: rgba(255, 255, 255, 1);
-  text-shadow: 
-  0 0 1vmax rgb(77, 255, 187), 
-  0 0 2vmax rgb(77, 255, 187),
-  0 0 3vmax rgb(77, 255, 187);
-}
-
-#viewportGame {
+#viewport {
   position: relative;
   width: 80vh;
   height: 80vh;
@@ -109,14 +80,11 @@
 }
 #buttons-container {
   height: 30vmin;
+  /* border: none; */
+  /* background: #00000000; */
 }
 
-#btnA, 
-#btnB,
-#btn-up, 
-#btn-down,
-#btn-left,
-#btn-right {
+button {
   font-size: 5vmin;
   color: #00000060;
   border: 0.5vmin outset rgba(248, 248, 248, 0.185);
@@ -128,26 +96,14 @@
   height: 16.5vmin;
   width: 16.5vmin;
   border-radius: 35%;
-<<<<<<< HEAD
-=======
   /* transition: all 1s ease; */
   text-align: center;
 }
-#btnA:hover, 
-#btnB:hover,
-#btn-up:hover, 
-#btn-down:hover,
-#btn-left:hover,
-#btn-right:hover{
+button:hover{
   border: 0.35vh outset rgba(248, 248, 248, 0.185);
   background: rgba(54, 94, 94, 0.418);
 }
-#btnA:active, 
-#btnB:active,
-#btn-up:active, 
-#btn-down:active,
-#btn-left:active,
-#btn-right:active{
+button:active {
   border: 0.45vh inset rgba(248, 248, 248, 0.185);
   background: rgba(45, 78, 78, 0.418);
   color: #ffffff31;
@@ -164,7 +120,6 @@
   position: absolute;
   top: 2%;
   left: 1%;
->>>>>>> main
 }
 
 #btn-up {
@@ -245,20 +200,6 @@
   }
 }
 
-<<<<<<< HEAD
-#error:active,
-#error:focus {
-  border: 0.45vh inset rgba(248, 248, 248, 0.185);
-  background: rgba(78, 45, 45, 0.418);
-  color: #ffffff31;
-  text-shadow: 0px 0px 20px rgb(255, 0, 0);
-  outline: none;
-}
-
-@media (orientation: landscape) {
-  body {
-    flex-direction: row;
-=======
 /* 2 */
 @media (min-width: 600px) and (orientation:landscape) {
   #eisle {
@@ -287,6 +228,5 @@
     position: absolute;
     display: flex;
     justify-content: space-between;
->>>>>>> main
   }
 }
