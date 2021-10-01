@@ -1,12 +1,4 @@
-* {
-  /* margin: 0; */
-  /* box-sizing: content-box; */
-}
 
-body {
-  /* height: 100vh; */
-  background: radial-gradient(black, rgb(46, 80, 82) 99%);
-}
 #eisle{
   overscroll-behavior: none;
 }
@@ -84,7 +76,12 @@ body {
   /* background: #00000000; */
 }
 
-button {
+#btnA, 
+#btnB,
+#btn-up, 
+#btn-down,
+#btn-left,
+#btn-right {
   font-size: 5vmin;
   color: #00000060;
   border: 0.5vmin outset rgba(248, 248, 248, 0.185);
@@ -99,11 +96,21 @@ button {
   /* transition: all 1s ease; */
   text-align: center;
 }
-button:hover{
+#btnA:hover, 
+#btnB:hover,
+#btn-up:hover, 
+#btn-down:hover,
+#btn-left:hover,
+#btn-right:hover{
   border: 0.35vh outset rgba(248, 248, 248, 0.185);
   background: rgba(54, 94, 94, 0.418);
 }
-button:active {
+#btnA:active, 
+#btnB:active,
+#btn-up:active, 
+#btn-down:active,
+#btn-left:active,
+#btn-right:active{
   border: 0.45vh inset rgba(248, 248, 248, 0.185);
   background: rgba(45, 78, 78, 0.418);
   color: #ffffff31;
