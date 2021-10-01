@@ -1,23 +1,6 @@
-* {
-  margin: 0;
-}
 
-body {
-  overflow-y: hidden;
-  overflow-x: hidden;
-  background: radial-gradient(black, rgb(46, 80, 82) 99%);
-}
-
-#eisle {
-  position: relative;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  border: 0.5vh solid rgba(128, 128, 128, 0.753);
-  border-radius: 25%;
-  background: radial-gradient(black, rgb(53, 92, 94) 30%);
+#eisle{
+  overscroll-behavior: none;
 }
 #tinytron { /*opposite of jumbotron*/
   position: absolute;
@@ -28,17 +11,56 @@ body {
   display: flex;
   justify-content: space-around;
 }
+
 #score {
   color: white;
   font-size: 2.5vmax;
   text-shadow: 0 0 2px yellow;
 }
+
 #time {
   color: white;
   font-size: 2.5vmax;
   text-shadow: 0 0 2px yellow;
 }
-#viewport {
+
+#viewportLobby{
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  width: 80vh;
+  height: 80vh;
+  border: 1vh inset rgba(128, 128, 128, 0.753);
+  background-color: black;
+  overflow: hidden;
+}
+#gamebtn-start,
+#gamebtn-highscores{
+  width: 100%;
+  padding: 2% 0;
+  color: rgba(255, 255, 255, 0.45);
+  text-shadow: 
+  0 0 1vmax rgb(255, 255, 255);
+  font-size: 2.5vmax;
+  text-align: center;
+  background-color:#00000000;
+  /* pointer-events: none; */
+}
+#gamebtn-start:focus,
+#gamebtn-highscores:focus,
+#gamebtn-start:active,
+#gamebtn-highscores:active
+{
+  color: rgba(255, 255, 255, 1);
+  text-shadow: 
+  0 0 1vmax rgb(77, 255, 187), 
+  0 0 2vmax rgb(77, 255, 187),
+  0 0 3vmax rgb(77, 255, 187);
+}
+
+#viewportGame {
   position: relative;
   width: 80vh;
   height: 80vh;
@@ -87,20 +109,62 @@ body {
 }
 #buttons-container {
   height: 30vmin;
-  /* border: none; */
-  /* background: #00000000; */
 }
 
-#btn-up,
-#btn-right,
+#btnA, 
+#btnB,
+#btn-up, 
 #btn-down,
-#btn-left {
+#btn-left,
+#btn-right {
+  font-size: 5vmin;
+  color: #00000060;
+  border: 0.5vmin outset rgba(248, 248, 248, 0.185);
+  background: rgba(61, 104, 105, 0.418);
+  touch-action: manipulation;
+  /* disables double tap zoom */
   position: absolute;
   font-weight: bold;
-  height: 17vh;
-  width: 17vh;
+  height: 16.5vmin;
+  width: 16.5vmin;
   border-radius: 35%;
+<<<<<<< HEAD
+=======
   /* transition: all 1s ease; */
+  text-align: center;
+}
+#btnA:hover, 
+#btnB:hover,
+#btn-up:hover, 
+#btn-down:hover,
+#btn-left:hover,
+#btn-right:hover{
+  border: 0.35vh outset rgba(248, 248, 248, 0.185);
+  background: rgba(54, 94, 94, 0.418);
+}
+#btnA:active, 
+#btnB:active,
+#btn-up:active, 
+#btn-down:active,
+#btn-left:active,
+#btn-right:active{
+  border: 0.45vh inset rgba(248, 248, 248, 0.185);
+  background: rgba(45, 78, 78, 0.418);
+  color: #ffffff31;
+  text-shadow: 0px 0px 20px rgb(0, 255, 170);
+  outline: none;
+}
+
+#back-btn {
+  font-size: 3vmin;
+  height: fit-content;
+  width: fit-content;
+  color: rgba(255, 255, 255, 0.5);
+  border: .5vmin inset rgba(255, 255, 255, 0.431);
+  position: absolute;
+  top: 2%;
+  left: 1%;
+>>>>>>> main
 }
 
 #btn-up {
@@ -126,66 +190,62 @@ body {
 
 #btn-A,
 #btn-B {
+  height: 17vmin;
+  width: 17vmin;
   position: absolute;
   font-weight: bold;
-  height: 20vh;
-  width: 20vh;
   border-radius: 50%;
 }
 #btn-A {
-  left: 5%;
+  left: 10%;
   top: 60%;
   transform: translate(0, -50%);
 }
 #btn-B {
-  right: 5%;
+  right: 10%;
   top: 40%;
   transform: translate(0, -50%);
 }
 
-#btn-A,
-#btn-B,
-#btn-up,
-#btn-down,
-#btn-left,
-#btn-right {
-  font-size: 5vh;
-  color: #00000060;
-  border: 0.35vh outset rgba(248, 248, 248, 0.185);
-  background: rgba(61, 104, 105, 0.418);
-  touch-action: manipulation;
-  /* disables double tap zoom */
+@media (min-width: 0) {
+  /* this is the same as not using a media query... */
+  #eisle{
+    flex-wrap: wrap;
+    height: 100vh;
+    border-radius: 0;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  #viewport{
+    width: 80vmin;
+    height: 80vmin;
+  }
+  #arrows-container,
+  #buttons-container {
+  position: relative;
+  width: 45vmin;
+  height: 45vmin;
+  border: outset 0.75vh rgba(128, 128, 128, 0.25);
+  border-radius: 40%;
+  background: radial-gradient(#00000000, rgba(0, 0, 0, 0.192));
+  }
+  #viewport-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    height: fit-content;
+    z-index: 0;
+  }
+  #buttons-container-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
-#btn-A:hover,
-#btn-B:hover,
-#btn-up:hover,
-#btn-down:hover,
-#btn-left:hover,
-#btn-right:hover {
-  border: 0.35vh outset rgba(248, 248, 248, 0.185);
-  background: rgba(54, 94, 94, 0.418);
-}
-
-#btn-A:active,
-#btn-A:focus,
-#btn-B:active,
-#btn-B:focus,
-#btn-up:active,
-#btn-up:focus,
-#btn-down:active,
-#btn-down:focus,
-#btn-left:active,
-#btn-left:focus,
-#btn-right:active,
-#btn-right:focus {
-  border: 0.45vh inset rgba(248, 248, 248, 0.185);
-  background: rgba(45, 78, 78, 0.418);
-  color: #ffffff31;
-  text-shadow: 0px 0px 20px rgb(0, 255, 170);
-  outline: none;
-}
-
+<<<<<<< HEAD
 #error:active,
 #error:focus {
   border: 0.45vh inset rgba(248, 248, 248, 0.185);
@@ -193,4 +253,40 @@ body {
   color: #ffffff31;
   text-shadow: 0px 0px 20px rgb(255, 0, 0);
   outline: none;
+}
+
+@media (orientation: landscape) {
+  body {
+    flex-direction: row;
+=======
+/* 2 */
+@media (min-width: 600px) and (orientation:landscape) {
+  #eisle {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    border: 0.5vh solid rgba(128, 128, 128, 0.753);
+    border-radius: 25%;
+    background: radial-gradient(black, rgb(53, 92, 94) 30%);
+  }
+  #viewport-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    height: fit-content;
+    z-index: 0;
+  }
+  #buttons-container-container {
+    width: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+>>>>>>> main
+  }
 }
