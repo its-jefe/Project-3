@@ -1,17 +1,15 @@
 * {
-  margin: 0;
-}
-
-html{
-  overflow: hidden;
+  /* margin: 0; */
+  /* box-sizing: content-box; */
 }
 
 body {
-  overflow-y: hidden;
-  overflow-x: hidden;
+  /* height: 100vh; */
   background: radial-gradient(black, rgb(46, 80, 82) 99%);
 }
-
+#eisle{
+  overscroll-behavior: none;
+}
 #tinytron { /*opposite of jumbotron*/
   position: absolute;
   width: 80vh; /*same as viewport*/
@@ -99,6 +97,7 @@ button {
   width: 16.5vmin;
   border-radius: 35%;
   /* transition: all 1s ease; */
+  text-align: center;
 }
 button:hover{
   border: 0.35vh outset rgba(248, 248, 248, 0.185);
