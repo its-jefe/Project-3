@@ -240,10 +240,11 @@ function Game() {
   return (
     <>
       <button id="back-btn">Back</button>
+
       <div id="eisle">
         <div id="tinytron">
-          <div id="score">Score: {score}</div>
-          <div id="time">Time: {time}</div>
+          <div id="score">Score <span>{score}</span></div>
+          <div id="time">Time <span>{time}</span></div>
         </div>
         <div id="viewport-container">
           <div id="viewport">
@@ -252,8 +253,6 @@ function Game() {
             {/* <div id="tail" style={{ left: tail.x + "%", top: tail.y + "%" }}></div> */}
           </div>
         </div>
-      </div>
-
         <div id="buttons-container-container">
           <div id="arrows-container">
             {
@@ -270,6 +269,7 @@ function Game() {
             <button id="btn-B">B</button>
           </div>
         </div>
+      </div>
   </>
   )
 }

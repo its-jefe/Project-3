@@ -1,316 +1,243 @@
-#eisle{
-  overscroll-behavior: none;
-}
-#tinytron { /*opposite of jumbotron*/
-  position: absolute;
-  width: 80vmin; /*same as viewport*/
-  transform: translate(-50%, -50%);
-  top: 5%;
-  left: 50%;
-  display: flex;
-  justify-content: space-around;
-}
-#score {
-  color: white;
-  font-size: 2.5vmax;
-  text-shadow: 0 0 2px yellow;
-}
-#time {
-  color: white;
-  font-size: 2.5vmax;
-  text-shadow: 0 0 2px yellow;
-}
-#viewport {
-  position: relative;
-  width: 80vmin;
-  height: 80vmin;
-  border: 1vmin inset rgba(128, 128, 128, 0.753);
-  background-color: black;
-  overflow: hidden;
-}
-#head {
-  position: absolute;
-  bottom: 50%;
-  right: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgb(199, 0, 199);
-  height: 5%;
-  width: 5%;
-  border: 1px solid rgb(218, 171, 255);
-  /* border-radius: 50%; */
-}
-
-#tail {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  background-color: rgb(155, 0, 155);
-  height: 5%;
-  width: 5%;
-  /* border-radius: 50%; */
-}
-
-#food {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  background-color: rgb(0, 255, 55);
-  height: 5%;
-  width: 5%;
-  /* border-radius: 50%; */
-}
-
-#arrows-container,
-#buttons-container {
-  position: relative;
-  width: 45vmin;
-  height: 45vmin;
-  border: outset 0.75vmin rgba(128, 128, 128, 0.25);
-  border-radius: 40%;
-  background: radial-gradient(#00000000, rgba(0, 0, 0, 0.192));
-}
-#buttons-container {
-  height: 30vmin;
-  transition: all 0.3s ease;
-  /* border: none; */
-  /* background: #00000000; */
-}
-
-#buttons-container-container {
-  transition: all 0.3s ease;
-}
-
-button {
-  font-size: 5vmin;
-  color: #00000060;
-  border: 0.5vmin outset rgba(248, 248, 248, 0.185);
-  background: rgba(61, 104, 105, 0.418);
-  touch-action: manipulation;
-  /* disables double tap zoom */
-  position: absolute;
-  font-weight: bold;
-  height: 17vh;
-  width: 17vh;
-  border-radius: 35%;
-  transition: all 0.3s ease;
-  text-align: center;
-}
-button:hover{
-  border: 0.35vmin outset rgba(248, 248, 248, 0.185);
-  background: rgba(54, 94, 94, 0.418);
-}
-button:active,
-button:focus {
-  border: 0.45vmin inset rgba(248, 248, 248, 0.185);
-  background: rgba(45, 78, 78, 0.418);
-  color: #ffffff31;
-  text-shadow: 0px 0px 20px rgb(0, 255, 170);
-  outline: none;
-}
-
-#back-btn {
-  font-size: 3vmin;
-  height: fit-content;
-  width: fit-content;
-  color: rgba(255, 255, 255, 0.5);
-  border: .5vmin inset rgba(255, 255, 255, 0.431);
-  position: absolute;
-  top: 2%;
-  left: 1%;
-}
-
-#btn-up {
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
-}
-#btn-down {
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
-}
-#btn-left {
-  top: 50%;
-  left: 0;
-  transform: translate(0, -50%);
-}
-#btn-right {
-  top: 50%;
-  right: 0;
-  transform: translate(0, -50%);
-}
-
-#btn-A,
-#btn-B {
-  position: absolute;
-  font-weight: bold;
-  height: 20vh;
-  width: 20vh;
-  border-radius: 50%;
-}
-#btn-A {
-  left: 5%;
-  top: 60%;
-  transform: translate(0, -50%);
-}
-#btn-B {
-  right: 5%;
-  top: 40%;
-  transform: translate(0, -50%);
-}
-
-#btn-A,
-#btn-B,
-#btn-up,
-#btn-down,
-#btn-left,
-#btn-right {
-  font-size: 5vh;
-  color: #00000060;
-  border: 0.35vh outset rgba(248, 248, 248, 0.185);
-  background: rgba(61, 104, 105, 0.418);
-  touch-action: manipulation;
-  /* disables double tap zoom */
-}
-
-#btn-A:hover,
-#btn-B:hover,
-#btn-up:hover,
-#btn-down:hover,
-#btn-left:hover,
-#btn-right:hover {
-  border: 0.35vh outset rgba(248, 248, 248, 0.185);
-  background: rgba(54, 94, 94, 0.418);
-}
-
-#btn-A:active,
-#btn-A:focus,
-#btn-B:active,
-#btn-B:focus,
-#btn-up:active,
-#btn-up:focus,
-#btn-down:active,
-#btn-down:focus,
-#btn-left:active,
-#btn-left:focus,
-#btn-right:active,
-#btn-right:focus {
-  border: 0.45vh inset rgba(248, 248, 248, 0.185);
-  background: rgba(45, 78, 78, 0.418);
-  color: #ffffff31;
-  text-shadow: 0px 0px 20px rgb(0, 255, 170);
-  outline: none;
-}
-
-#error:active,
-#error:focus {
-  border: 0.45vh inset rgba(248, 248, 248, 0.185);
-  background: rgba(78, 45, 45, 0.418);
-  color: #ffffff31;
-  text-shadow: 0px 0px 20px rgb(255, 0, 0);
-  outline: none;
-}
-
-
 @media (min-width: 0) {
-  /* this is the same as not using a media query... */
   #eisle{
-    height: 100vmin;
     display: flex;
     flex-wrap: wrap;
-    height: 100vmin;
-    border-radius: 0;
-    justify-content: center;
+    background: radial-gradient(black, rgb(46, 80, 82) 99%);
+    border: 1px inset black;
+    border-radius: 15%;
+    min-width: 100%;
+    min-height: fit-content;
+    /* padding-top: 5vh; */
+    /* overscroll-behavior: none; */ /* does not work */
   }
-  #tinytron{
-    top: 16vmin;
-    width: 100vw;
-    font-size: 5vmin;
+  #back-btn {
+    font-size: 2vmin;
+    height: fit-content;
+    width: fit-content;
+    color: rgba(255, 255, 255, 0.5);
+    border: .5vmin inset rgba(255, 255, 255, 0.431);
+    position: absolute;
+    top: 2vmin;
+    left: 4vmin;
+    transform: translate(-50%, -50%);
   }
-  #score{
-    font-size: inherit;
+  #tinytron {
+    font-size: 2.5vmax;
+    height: fit-content;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    justify-self: center;
+    padding: 0 10vmin;
   }
-  #time{
-    font-size: inherit;
+  #score,
+  #time {
+    color: rgba(0, 0, 0, 0.5);
+  } 
+
+  #score span,
+  #time span{
+    color: rgba(255, 255, 255, 0.301);
+    text-shadow: 0 0 2px greenyellow;
   }
+ 
   #viewport-container{
-    top: 22vmin;
     display: flex;
     justify-content: center;
     align-items: center;
-    align-content: center;
     width: 100%;
     height: fit-content;
-    z-index: 0;
+    padding-bottom: 1vh;
   }
   #viewport{
-    width: 90vmin;
-    height: 90vmin;
-    top: inherit;
+    height: 80vmin;
+    width: 80vmin;
+    position: relative;
+    border: 1vmin inset rgba(128, 128, 128, 0.753);
+    background-color: black;
+    overflow: hidden;
   }
+  #head {
+    position: absolute;
+    bottom: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(199, 0, 199);
+    height: 5%;
+    width: 5%;
+    border: 1px solid rgb(218, 171, 255);
+  }
+  #tail { /* in progress */
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background-color: rgb(155, 0, 155);
+    height: 5%;
+    width: 5%;
+  }
+  #food {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background-color: rgb(0, 255, 55);
+    height: 5%;
+    width: 5%;
+  }
+  
+  #buttons-container-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    justify-content: space-around;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+
   #arrows-container,
   #buttons-container {
-  position: relative;
-  width: 45vmin;
-  height: 45vmin;
-  border: outset 0.75vmin rgba(128, 128, 128, 0.25);
-  border-radius: 40%;
-  background: radial-gradient(#00000000, rgba(0, 0, 0, 0.192));
+    position: relative;
+    width: 45vmin;
+    height: 45vmin;
+    border: outset 0.75vmin rgba(128, 128, 128, 0.25);
+    border-radius: 40%;
+    background: radial-gradient(#00000000, rgba(0, 0, 0, 0.192));
+    transition: all 0.3s ease;
   }
-  #buttons-container-container {
+
+  #buttons-container {
+    height: 30vmin;
+  }
+  
+  button {
     position: absolute;
-    top: 130vmin;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+    font-size: 5vmin;
+    color: #00000060;
+    border: 0.5vmin outset rgba(248, 248, 248, 0.185);
+    background: rgba(61, 104, 105, 0.418);
+    touch-action: manipulation;
+    /* disables double tap zoom */
+    font-weight: bold;
+    height: 37%;
+    width: 37%;
+    border-radius: 35%;
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+  button:hover{
+    border: 0.35vmin outset rgba(248, 248, 248, 0.185);
+    background: rgba(54, 94, 94, 0.418);
+  }
+  button:active,
+  button:focus {
+    border: 0.45vmin inset rgba(248, 248, 248, 0.185);
+    background: rgba(45, 78, 78, 0.418);
+    color: #ffffff31;
+    text-shadow: 0px 0px 20px rgb(0, 255, 170);
+    outline: none;
+  }  
+  #btn-up {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+  #btn-down {
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+  #btn-left {
+    top: 50%;
+    left: 0;
+    transform: translate(0, -50%);
+  }
+  #btn-right {
+    top: 50%;
+    right: 0;
+    transform: translate(0, -50%);
+  }
+  #btn-A,
+  #btn-B {
+    height: 45%;
+    width: 45%;
+    border-radius: 50%;
+  }
+  #btn-A {
+    left: 5%;
+    top: 60%;
+    transform: translate(0, -50%);
+  }
+  #btn-B {
+    right: 5%;
+    top: 40%;
+    transform: translate(0, -50%);
+  }
+  
+  #btn-A,
+  #btn-B,
+  #btn-up,
+  #btn-down,
+  #btn-left,
+  #btn-right {
+    color: #00000060;
+    border: 0.35vh outset rgba(248, 248, 248, 0.185);
+    background: rgba(61, 104, 105, 0.418);
+  }
+  
+  #btn-A:hover,
+  #btn-B:hover,
+  #btn-up:hover,
+  #btn-down:hover,
+  #btn-left:hover,
+  #btn-right:hover {
+    border: 0.35vmin outset rgba(248, 248, 248, 0.185);
+    background: rgba(54, 94, 94, 0.418);
+  }
+  
+  #btn-A:active,
+  #btn-A:focus,
+  #btn-B:active,
+  #btn-B:focus,
+  #btn-up:active,
+  #btn-up:focus,
+  #btn-down:active,
+  #btn-down:focus,
+  #btn-left:active,
+  #btn-left:focus,
+  #btn-right:active,
+  #btn-right:focus {
+    border: 0.45vmin inset rgba(248, 248, 248, 0.185);
+    background: rgba(45, 78, 78, 0.418);
+    color: #ffffff31;
+    text-shadow: 0px 0px 20px rgb(0, 255, 170);
+    outline: none;
+  }
+  
+  #error:active,
+  #error:focus {
+    border: 0.45vmin inset rgba(248, 248, 248, 0.185);
+    background: rgba(78, 45, 45, 0.418);
+    color: #ffffff31;
+    text-shadow: 0px 0px 20px rgb(255, 0, 0);
+    outline: none;
   }
 }
 
 /* 2 */
 @media (min-width: 600px) and (orientation:landscape) {
-  #eisle{
-    width: 100vw;
-    display: flex;
-    /* flex-wrap: wrap; */
-    height: 100vmin;
-    border-radius: 50;
-    /* justify-content: center; */
-  }
-  #tinytron{
-    width: 100vmax;
-  }
-  #viewport-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-  }
   #viewport{
-    width: 90vmin;
-    height: 90vmin;
-    top: 10vmin;
-  }
-  #buttons-container-container{
-    position: absolute;
-    top: 140vmin;
-  }
+    height:45vw;
+    width:45vw;
+  }  
   #arrows-container,
   #buttons-container {
   position: relative;
-  width: 45vmin;
-  height: 45vmin;
-  border: outset 0.75vmin rgba(128, 128, 128, 0.25);
-  border-radius: 40%;
-  background: radial-gradient(#00000000, rgba(0, 0, 0, 0.192));
+  width: 27vw;
+  height: 27vw;
   }
-  #viewport-container{
-    display: flex;
-    width: 100%;
-    height: fit-content;
-    z-index: 0;
-  }
+
   #buttons-container-container {
-    top: 20vmax;
-    width: 100%;
     display: flex;
     justify-content: space-between;
+    position: absolute;
   }
 }
