@@ -135,9 +135,6 @@ function Game() {
       // focus the [associated] button
       document.getElementById(`btn-${button.id}`).focus();
 
-      if (start) { // you are in the lobby
-        console.log(button)
-      }
       if (start === true) { // you are in the game
         if (button.defaultPrevented) {
           // Do nothing if event already handled
@@ -152,7 +149,7 @@ function Game() {
         // if the current axis (at time of keypress) is not the same as direction trying to go
         // does not fire movement interval unless head is changing axis (allows only left n right turns)
         if (head.direction.axis !== button.axis) {
-          if (firstMove) {
+          if (start) {
             clearInterval(firstMove)
           }
           firstMove = setInterval(() => {
@@ -215,8 +212,6 @@ function Game() {
     <>
       <button id="back-btn">Back</button>
       <div id="eisle">
-
-
         <div id="tinytron">
           <div id="score">Score: {score}</div>
           <div id="time">Time: {time}</div>
