@@ -1,12 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-
-html {
-  overflow-y: scroll;
-  height: min-content;
-}
-
 #heading {
   color: white;
   text-align: center;
