@@ -1,18 +1,9 @@
-* {
-  /* margin: 0; */
-  /* box-sizing: content-box; */
-}
-
-body {
-  height: 100vh;
-  background: radial-gradient(black, rgb(46, 80, 82) 99%);
-}
 #eisle{
   overscroll-behavior: none;
 }
 #tinytron { /*opposite of jumbotron*/
   position: absolute;
-  width: 80vh; /*same as viewport*/
+  width: 80vmin; /*same as viewport*/
   transform: translate(-50%, -50%);
   top: 5%;
   left: 50%;
@@ -33,9 +24,9 @@ body {
 }
 #viewport {
   position: relative;
-  width: 80vh;
-  height: 80vh;
-  border: 1vh inset rgba(128, 128, 128, 0.753);
+  width: 80vmin;
+  height: 80vmin;
+  border: 1vmin inset rgba(128, 128, 128, 0.753);
   background-color: black;
   overflow: hidden;
 }
@@ -74,14 +65,19 @@ body {
   position: relative;
   width: 45vmin;
   height: 45vmin;
-  border: outset 0.75vh rgba(128, 128, 128, 0.25);
+  border: outset 0.75vmin rgba(128, 128, 128, 0.25);
   border-radius: 40%;
   background: radial-gradient(#00000000, rgba(0, 0, 0, 0.192));
 }
 #buttons-container {
   height: 30vmin;
+  transition: all 0.3s ease;
   /* border: none; */
   /* background: #00000000; */
+}
+
+#buttons-container-container {
+  transition: all 0.3s ease;
 }
 
 button {
@@ -96,15 +92,16 @@ button {
   height: 16.5vmin;
   width: 16.5vmin;
   border-radius: 35%;
-  /* transition: all 1s ease; */
+  transition: all 0.3s ease;
   text-align: center;
 }
 button:hover{
-  border: 0.35vh outset rgba(248, 248, 248, 0.185);
+  border: 0.35vmin outset rgba(248, 248, 248, 0.185);
   background: rgba(54, 94, 94, 0.418);
 }
-button:active {
-  border: 0.45vh inset rgba(248, 248, 248, 0.185);
+button:active,
+button:focus {
+  border: 0.45vmin inset rgba(248, 248, 248, 0.185);
   background: rgba(45, 78, 78, 0.418);
   color: #ffffff31;
   text-shadow: 0px 0px 20px rgb(0, 255, 170);
@@ -165,26 +162,26 @@ button:active {
 @media (min-width: 0) {
   /* this is the same as not using a media query... */
   #eisle{
+    height: 100vmin;
+    display: flex;
     flex-wrap: wrap;
-    height: 100vh;
+    height: 100vmin;
     border-radius: 0;
     justify-content: center;
-    flex-wrap: wrap;
   }
-  #viewport{
-    width: 80vmin;
-    height: 80vmin;
+  #tinytron{
+    top: 16vmin;
+    width: 100vw;
+    font-size: 5vmin;
   }
-  #arrows-container,
-  #buttons-container {
-  position: relative;
-  width: 45vmin;
-  height: 45vmin;
-  border: outset 0.75vh rgba(128, 128, 128, 0.25);
-  border-radius: 40%;
-  background: radial-gradient(#00000000, rgba(0, 0, 0, 0.192));
+  #score{
+    font-size: inherit;
+  }
+  #time{
+    font-size: inherit;
   }
   #viewport-container{
+    top: 22vmin;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -193,7 +190,23 @@ button:active {
     height: fit-content;
     z-index: 0;
   }
+  #viewport{
+    width: 90vmin;
+    height: 90vmin;
+    top: inherit;
+  }
+  #arrows-container,
+  #buttons-container {
+  position: relative;
+  width: 45vmin;
+  height: 45vmin;
+  border: outset 0.75vmin rgba(128, 128, 128, 0.25);
+  border-radius: 40%;
+  background: radial-gradient(#00000000, rgba(0, 0, 0, 0.192));
+  }
   #buttons-container-container {
+    position: absolute;
+    top: 130vmin;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -202,30 +215,50 @@ button:active {
 
 /* 2 */
 @media (min-width: 600px) and (orientation:landscape) {
-  #eisle {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  #eisle{
     width: 100vw;
-    border: 0.5vh solid rgba(128, 128, 128, 0.753);
-    border-radius: 25%;
-    background: radial-gradient(black, rgb(53, 92, 94) 30%);
+    display: flex;
+    /* flex-wrap: wrap; */
+    height: 100vmin;
+    border-radius: 50;
+    /* justify-content: center; */
+  }
+  #tinytron{
+    width: 100vmax;
   }
   #viewport-container{
     display: flex;
     justify-content: center;
     align-items: center;
     align-content: center;
+  }
+  #viewport{
+    width: 90vmin;
+    height: 90vmin;
+    top: 10vmin;
+  }
+  #buttons-container-container{
+    position: absolute;
+    top: 140vmin;
+  }
+  #arrows-container,
+  #buttons-container {
+  position: relative;
+  width: 45vmin;
+  height: 45vmin;
+  border: outset 0.75vmin rgba(128, 128, 128, 0.25);
+  border-radius: 40%;
+  background: radial-gradient(#00000000, rgba(0, 0, 0, 0.192));
+  }
+  #viewport-container{
+    display: flex;
     width: 100%;
     height: fit-content;
     z-index: 0;
   }
   #buttons-container-container {
+    top: 20vmax;
     width: 100%;
-    position: absolute;
     display: flex;
     justify-content: space-between;
   }
