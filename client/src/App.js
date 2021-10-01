@@ -22,13 +22,24 @@ const client = new ApolloClient({
   uri: "/graphql",
 });
 
+// function App() {
+//   return (
+//     <div className="App">
+//       <header className="App-header"></header>
+//       <Home />
+//     </div>
+//   );
+// }
+
 function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/gamepage" component={GamePage} />
+          <Route exact path="/gamepage">
+            <GamePage />
+          </Route>
         </Switch>
       </Router>
     </ApolloProvider>
