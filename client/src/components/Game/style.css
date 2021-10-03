@@ -184,6 +184,7 @@
     top: 2vmin;
     left: 4vmin;
     transform: translate(-50%, -50%);
+    z-index: 4;
   }
 
   #btn-A:hover,
