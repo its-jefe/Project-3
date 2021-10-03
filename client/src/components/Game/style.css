@@ -1,6 +1,7 @@
 @media (min-width: 0) {
   #eisle {
     display: flex;
+    position: relative;
     flex-wrap: wrap;
     background: radial-gradient(black, rgb(46, 80, 82) 99%);
     border: 0.1px solid rgba(0, 0, 0, 0);
@@ -43,8 +44,8 @@
     padding-bottom: 1vh;
   }
   #viewport {
-    height: 80vmin;
-    width: 80vmin;
+    height: clamp(80vmin, 80vmin, 60vmin);
+    width: clamp(80vmin, 80vmin, 60vmin);
     position: relative;
     border: 1vmin inset rgba(128, 128, 128, 0.753);
     background-color: black;
@@ -184,6 +185,7 @@
     top: 2vmin;
     left: 4vmin;
     transform: translate(-50%, -50%);
+    z-index: 4;
   }
 
   #btn-A:hover,
@@ -226,21 +228,36 @@
 }
 
 /* 2 */
-@media (min-width: 600px) and (orientation: landscape) {
+@media (min-width: 565px) {
   #viewport {
-    height: 45vw;
-    width: 45vw;
+    height: 60vh;
+    width: 60vh;
   }
   #arrows-container,
   #buttons-container {
     position: relative;
-    width: 27vw;
-    height: 27vw;
+    width: 35vh;
+    height: 35vh;
   }
-
+}
+/* 3 */
+@media (min-width: 1000px) and (orientation: landscape) {
+  #viewport {
+    height: 45vmax;
+    width: 45vmax;
+  }
   #buttons-container-container {
     display: flex;
     justify-content: space-between;
     position: absolute;
+    top: 10%;
+    /* transform: translate(0, -50%); */
+  }
+  #arrows-container,
+  #buttons-container {
+    position: relative;
+    width: 26vmax;
+    height: 26vmax;
   }
 }
+

@@ -1,4 +1,5 @@
 import React, { useReducer, useEffect, useCallback } from "react"
+import { useHistory } from "react-router-dom";
 
 import './style.css'
 
@@ -11,12 +12,11 @@ import './style.css'
 // really it doesn't look that bad tho so maybe forget ab it
 
 const startTime = 60;
-
+/*⬇️ Reducers ⬇️*/
 const startReducer = (start, val) => {
   start = val
   return start
 }
-
 const headReducer = ({ x, y, direction, init }, { axis, change }) => {
   // x boundaries
   if (x === 100 && change === 1) return { x: 0, y: y, direction: { axis: axis, change: change } }
@@ -47,7 +47,6 @@ const headReducer = ({ x, y, direction, init }, { axis, change }) => {
     return { x: x, y: y + change, direction: { axis: axis, change: change } }
   }
 }
-
 const foodReducer = () => {
   //return new food.coords properties
   return {
@@ -55,21 +54,18 @@ const foodReducer = () => {
     y: Math.floor(Math.random() * 97 + 2)
   };
 };
-
 const scoreReducer = (score, newScore) => {
   return score + newScore
 }
-
 const timeReducer = (time, timer) => {
-  if(time !== 0){
+  if (time !== 0) {
     return time - 1
-  }else{
+  } else {
     clearInterval(timer)
     console.log(timer) // curious if this value is anything I can use
     console.log("GAME OVER!")
   }
 }
-
 const tailReducer = ({ x, y }, head) => { // fires twice in development ... but not in production 
 
   // tail needs to chase head around
@@ -91,19 +87,26 @@ const tailReducer = ({ x, y }, head) => { // fires twice in development ... but 
   */
   return { x: head.x - 5, y: head.y - 5 }
 };
+/*⬆️ Reducers ⬆️*/
 
 function Game() {
 
-  // INITIATE
+  const history = useHistory();
 
-  /*⬇️ Reducers ⬇️*/
+  const goBack = () => {
+    let path = `/`;
+    history.push(path);
+  }
+
+  // INITIATE
+  /*⬇️ State(s) w Reducers ⬇️*/
   const [start, setStart] = useReducer(startReducer, false)
   const [head, setHead] = useReducer(headReducer, { x: 50, y: 50, direction: { axis: null, change: null }, init: false })
   const [food, setFood] = useReducer(foodReducer, { x: Math.floor(Math.random() * 97 + 2), y: Math.floor(Math.random() * 97 + 2) })
   const [tail, setTail] = useReducer(tailReducer, [])
   const [score, setScore] = useReducer(scoreReducer, 0)
   const [time, setTime] = useReducer(timeReducer, startTime)
-  /*⬆️ Reducers ⬆️*/
+  /*⬆️ State(s) w Reducers ⬆️*/
 
   /*⬇️ Buttons ⬇️*/
   const btnUp = {
@@ -233,7 +236,9 @@ function Game() {
 
   return (
     <>
-      <button id="back-btn">Back</button>
+      <button id="back-btn"
+        onClick={goBack}
+      >Back</button>
 
       <div id="eisle">
         <div id="tinytron">
@@ -264,7 +269,7 @@ function Game() {
           </div>
         </div>
       </div>
-  </>
+    </>
   )
 }
 
