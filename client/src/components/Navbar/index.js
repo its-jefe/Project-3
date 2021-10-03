@@ -28,7 +28,7 @@ const AppNavbar = () => {
               {Auth.loggedIn() ? (
                 <>
                   <Nav.Link as={Link} to="/gamepage">
-                    <span id="btn">Snake</span>
+                    <span id="btn">Game</span>
                   </Nav.Link>
                   <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
                 </>
@@ -39,6 +39,11 @@ const AppNavbar = () => {
                   </Nav.Link>
                 </Navbar.Brand>
               )}
+              {/* REMOVE THIS WHEN WE GET AUTH PAGE LOADING PROPERLY */}
+              <Navbar.Brand as={Link} to="/gamepage" id="link">
+                <span id="btn">Game</span>
+              </Navbar.Brand>
+              {/* REMOVE THIS WHEN WE GET AUTH PAGE LOADING PROPERLY */}
             </Nav>
           </Navbar.Collapse>
         </Container>
