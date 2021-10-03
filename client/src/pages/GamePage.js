@@ -4,9 +4,9 @@ import Game from "../components/Game";
 
 const GamePage = () => {
   return (
-    <Router>
+    <>
       <Game />;
-    </Router>
+    </>
   );
 };
 
