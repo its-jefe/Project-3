@@ -10,12 +10,10 @@ import RealHome from "./RealHome";
 
 const Home = () => {
   return (
-    <Router>
       <>
         <RealHome />
         <Navbar />
       </>
-    </Router>
   );
 };
 

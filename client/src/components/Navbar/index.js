@@ -8,6 +8,7 @@ import "./style.css";
 import Auth from "../../utils/auth";
 
 const AppNavbar = () => {
+
   // set modal display state
   const [showModal, setShowModal] = useState(false);
 
@@ -18,7 +19,6 @@ const AppNavbar = () => {
           <Navbar.Brand as={Link} to="/" id="link">
             <span id="btn">Home page</span>
           </Navbar.Brand>
-
 
           <Navbar.Toggle aria-controls="navbar" />
 
