@@ -93,7 +93,7 @@ function Game() {
 
   const history = useHistory();
 
-  const routeChange = () => {
+  const goBack = () => {
     let path = `/`;
     history.push(path);
   }
@@ -237,7 +237,7 @@ function Game() {
   return (
     <>
       <button id="back-btn"
-        onClick={routeChange}
+        onClick={goBack}
       >Back</button>
 
       <div id="eisle">
