@@ -1,9 +1,10 @@
 # Snak3r
 
- ## Link to deployed application/Repository: <br />
-  https://github.com/its-jefe/Project-3
+ ## Links: <br />
+  
+  Repo : https://github.com/its-jefe/Project-3
 
-  https://p3-snake.herokuapp.com/
+  Deployment : https://p3-snake.herokuapp.com/
 
  # Table of contents <br />
  -[Description](#Description) <br />
