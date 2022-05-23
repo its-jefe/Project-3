@@ -1,6 +1,6 @@
 # Snak3r
 
-#### Group Project #3 [Part1][1] [Part2][2]for [UCF Coding Bootcamp](https://bootcamp.ce.ucf.edu/coding/)
+#### Group Project #3 ([Part1][1] & [Part2][2]) for [UCF Coding Bootcamp](https://bootcamp.ce.ucf.edu/coding/)
 
 
 ## Not fully funcionning 
